@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light" data-page-node-id="o3mqpeC9rkTZVG1TPcB6KR">
+<head data-page-node-id="Qa4SS9wA4IwfR04QEdTBiP">
+<meta charset="UTF-8" data-page-node-id="3BNVUbA26hv0BY1OG0s1pE">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" data-page-node-id="5REBv0KeNOZkbYoAfNTGgF">
+<meta name="theme-color" content="#FF7A59" data-page-node-id="sASUM2lbfOHPUiBAyLow0G">
+<meta name="description" content="心晴小站 —— 面向珠海斗门新青工业园 8-12 岁流动儿童及其家长的公益心理安全科普网页原型。认识情绪、学会自我保护、家长简易育儿指引与珠海本地心理援助资源。" data-page-node-id="FwH3JGtY4MiLSOtrJdYXIB">
+<title>心晴小站 · 斗门新青儿童心理安全科普（网页原型）</title>
+<style>
+/* ============ 设计令牌 ============ */
+:root{
+  --bg:#FFF7F0; --bg-2:#FFEDE0; --card:#FFFFFF; --card-2:#FFF9F4;
+  --ink:#2E2A28; --ink-2:#6E645D; --line:#F1E4D9;
+  --brand:#FF7A59; --brand-d:#E85E3C; --brand-soft:#FFEDE6;
+  --teal:#1E9E95; --teal-soft:#E2F5F3;
+  --sun:#E39A00; --sun-soft:#FFF4DC;
+  --violet:#6E5CF0; --violet-soft:#EDEAFE;
+  --pink:#E85C8B; --pink-soft:#FFEAF1;
+  --danger:#D93A3F; --danger-soft:#FDECEC;
+  --smile:#E39A00;
+  --radius:22px; --radius-s:14px; --radius-l:30px;
+  --shadow:0 8px 26px rgba(176,120,84,.10);
+  --shadow-s:0 3px 12px rgba(176,120,84,.09);
+  --maxw:1000px;
+}
+html[data-theme="dark"]{
+  --bg:#141218; --bg-2:#1B1820; --card:#211E28; --card-2:#26222E;
+  --ink:#F3EFEA; --ink-2:#B5ACA4; --line:#342F3D;
+  --brand:#FF9271; --brand-d:#FF7A59; --brand-soft:#33231F;
+  --teal:#5BD0C6; --teal-soft:#1C2E2D;
+  --sun:#FFC65C; --sun-soft:#33291A;
+  --violet:#A99CFB; --violet-soft:#282440;
+  --pink:#FF9BBD; --pink-soft:#33222B;
+  --danger:#FF7076; --danger-soft:#3A2224;
+  --shadow:0 8px 26px rgba(0,0,0,.40);
+  --shadow-s:0 3px 12px rgba(0,0,0,.32);
+}
+
+/* ============ 基础 ============ */
+*,*::before,*::after{box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html.large-font{font-size:19px}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",sans-serif;
+  font-size:1rem;line-height:1.85;letter-spacing:.01em;
+  overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--brand-d);text-underline-offset:3px}
+h1,h2,h3,h4{margin:0;line-height:1.35;font-weight:800;letter-spacing:0}
+p{margin:0 0 .85em}
+ul,ol{margin:0 0 .9em;padding-left:1.25em}
+li{margin:.3em 0}
+:focus-visible{outline:3px solid var(--violet);outline-offset:2px;border-radius:8px}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 18px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;background:var(--brand);color:#fff;padding:10px 16px;border-radius:0 0 12px 0;z-index:200}
+.skip:focus{left:0}
+
+/* ============ 顶部功能栏（品牌 + 工具 + 板块导航） ============ */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+}
+@supports (backdrop-filter:blur(1px)){
+  .topbar{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:saturate(160%) blur(12px)}
+}
+.topbar-in{display:flex;align-items:center;gap:10px;height:56px}
+.brand{display:flex;align-items:center;gap:9px;background:none;border:0;padding:4px 4px;border-radius:12px}
+.brand-badge{
+  width:34px;height:34px;border-radius:11px;flex:0 0 auto;
+  background:linear-gradient(135deg,var(--brand),var(--sun));
+  display:grid;place-items:center;font-size:19px;box-shadow:var(--shadow-s)
+}
+.brand-txt{text-align:left}
+.brand-txt b{display:block;font-size:.95rem;line-height:1.15;white-space:nowrap}
+.brand-txt span{display:block;font-size:.66rem;color:var(--ink-2);line-height:1.3}
+.spacer{flex:1 1 auto}
+.tool{display:flex;gap:5px;flex:0 0 auto}
+.tbtn{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  min-width:38px;height:36px;padding:0 9px;font-size:.78rem;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:5px;color:var(--ink);
+  box-shadow:var(--shadow-s);transition:transform .15s,background .15s
+}
+.tbtn:hover{transform:translateY(-1px)}
+.tbtn[aria-pressed="true"]{background:var(--brand-soft);border-color:var(--brand);color:var(--brand-d)}
+.tbtn .ic{font-size:.95rem;line-height:1}
+.tbtn-danger{background:var(--danger-soft);border-color:color-mix(in srgb,var(--danger) 42%,transparent);color:var(--danger)}
+.tbtn-danger .ic{color:var(--danger)}
+
+/* 板块导航条（可横向滑动） */
+.navrow{border-top:1px solid color-mix(in srgb,var(--line) 65%,transparent)}
+.tabbar{display:flex;gap:7px;overflow-x:auto;padding:8px 0 9px;scrollbar-width:none}
+.tabbar::-webkit-scrollbar{height:0;display:none}
+.tabbar button{
+  flex:0 0 auto;white-space:nowrap;color:var(--ink-2);
+  background:var(--card);border:1px solid var(--line);border-radius:999px;
+  padding:7px 13px;font-size:.79rem;font-weight:700;
+  display:inline-flex;align-items:center;gap:5px;box-shadow:var(--shadow-s);
+  transition:background .15s,color .15s,border-color .15s
+}
+.tabbar button.is-on{background:var(--brand-soft);border-color:var(--brand);color:var(--brand-d);font-weight:800}
+@media (max-width:560px){
+  .brand-txt span{display:none}
+  .tbtn .lbl{display:none}
+  .tbtn{min-width:36px;padding:0 7px}
+  .topbar-in{gap:6px}
+}
+/* 超窄屏：品牌只留文字，腾出空间给 5 个功能按钮，避免站名被折成两行 */
+@media (max-width:420px){
+  .brand-badge{display:none}
+  .brand{padding:4px 2px}
+  .tbtn{min-width:34px;padding:0 6px}
+}
+
+/* ============ 逐段朗读 ============ */
+.rd{cursor:pointer;border-radius:12px;transition:background .18s,box-shadow .18s}
+.rd:hover{background:color-mix(in srgb,var(--brand-soft) 60%,transparent)}
+.rd.reading{
+  background:var(--brand-soft);
+  box-shadow:inset 3px 0 0 var(--brand-d);
+}
+.rd-ic{
+  display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;
+  margin:0 0 0 6px;width:23px;height:23px;border-radius:8px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-2);
+  font-size:.66rem;line-height:1;cursor:pointer;flex:0 0 auto
+}
+.rd-ic:hover{border-color:var(--brand);color:var(--brand-d)}
+.rd.reading .rd-ic{background:var(--brand);border-color:var(--brand);color:#fff}
+@media (hover:hover) and (pointer:fine){
+  .rd-ic{opacity:0;transition:opacity .15s}
+  .rd:hover .rd-ic,.rd.reading .rd-ic,.rd-ic:focus-visible{opacity:1}
+}
+/* 关掉逐段朗读时，收起小喇叭并停止整段可点 */
+.no-read .rd-ic{display:none}
+.no-read .rd{cursor:auto}
+.no-read .rd:hover{background:transparent}
+.no-read #readHintWrap{display:none}
+
+/* 朗读提示条 / 声音入口 */
+.readbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0 0}
+.readbar .rb-ic{flex:0 0 auto}
+.readbar .rb-tip{flex:1 1 110px;min-width:0}
+.readbar #readHintClose{
+  flex:0 0 auto;background:var(--bg-2);border:0;border-radius:9px;
+  width:26px;height:26px;font-weight:800;color:var(--ink-2)
+}
+.hint-min .rb-tip,.hint-min #readHintClose{display:none}
+.hint-min .rb-ic{font-size:.9rem}
+.vbtn{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
+  background:var(--card);border:1px solid color-mix(in srgb,var(--teal) 38%,transparent);
+  color:var(--teal);border-radius:999px;padding:6px 13px;font-size:.76rem;font-weight:800
+}
+.vbtn:hover{border-color:var(--teal)}
+.voice-list{display:flex;flex-direction:column;gap:8px;max-height:48vh;overflow-y:auto;padding:2px}
+.voice-list button{
+  display:flex;align-items:center;gap:9px;text-align:left;color:var(--ink);
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:11px 14px;font-size:.86rem;font-weight:700
+}
+.voice-list button small{margin-left:auto;color:var(--ink-2);font-weight:600;font-size:.74rem}
+.voice-list button.is-on{border-color:var(--brand);background:var(--brand-soft);color:var(--brand-d)}
+.voice-list button.is-on small{color:var(--brand-d)}
+
+/* ============ 视图 ============ */
+.view{display:none;padding:22px 0 64px;animation:fade .32s ease both}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+  html{scroll-behavior:auto}
+}
+
+/* ============ 通用块 ============ */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin:0 0 16px}
+.card.flat{box-shadow:none}
+.card.soft{background:var(--card-2)}
+.sec-head{display:flex;align-items:flex-start;gap:12px;margin:0 0 14px}
+.sec-head .ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:1.35rem;flex:0 0 auto}
+.sec-head h2{font-size:1.28rem}
+.sec-head p{margin:.25em 0 0;color:var(--ink-2);font-size:.88rem;line-height:1.6}
+.eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-d);margin:0 0 6px}
+h3.h{font-size:1.06rem;margin:22px 0 8px;display:flex;align-items:center;gap:8px}
+h3.h::before{content:"";width:6px;height:18px;border-radius:4px;background:var(--brand)}
+h4.h{font-size:.98rem;margin:16px 0 6px}
+.lead{font-size:1.03rem;color:var(--ink-2)}
+.muted{color:var(--ink-2)}
+.small{font-size:.83rem}
+.tiny{font-size:.76rem;line-height:1.7}
+.center{text-align:center}
+
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:700;padding:4px 11px;border-radius:999px;background:var(--brand-soft);color:var(--brand-d);line-height:1.6}
+.pill.teal{background:var(--teal-soft);color:var(--teal)}
+.pill.sun{background:var(--sun-soft);color:var(--sun)}
+.pill.violet{background:var(--violet-soft);color:var(--violet)}
+.pill.pink{background:var(--pink-soft);color:var(--pink)}
+.pill.gray{background:var(--bg-2);color:var(--ink-2)}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:14px;padding:12px 18px;font-weight:700;font-size:.94rem;
+  box-shadow:var(--shadow-s);transition:transform .15s,box-shadow .15s
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg,var(--brand),#FF9E6E);border-color:transparent;color:#fff}
+.btn-dark{background:var(--ink);color:var(--bg);border-color:transparent}
+.btn-ghost{background:transparent;box-shadow:none}
+.btn-block{width:100%}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+
+.note{
+  border-radius:var(--radius-s);padding:13px 15px;font-size:.84rem;line-height:1.75;
+  border:1px solid var(--line);background:var(--card-2);color:var(--ink-2)
+}
+.note b{color:var(--ink)}
+.note.warn{background:var(--sun-soft);border-color:color-mix(in srgb,var(--sun) 35%,transparent)}
+.note.danger{background:var(--danger-soft);border-color:color-mix(in srgb,var(--danger) 32%,transparent)}
+.note.info{background:var(--teal-soft);border-color:color-mix(in srgb,var(--teal) 30%,transparent)}
+.note + .note{margin-top:10px}
+
+/* 表格 */
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-s);border:1px solid var(--line)}
+table.dt{border-collapse:collapse;width:100%;min-width:560px;font-size:.85rem;background:var(--card)}
+table.dt th,table.dt td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:11px 13px;vertical-align:top;text-align:left;line-height:1.65}
+table.dt th{background:var(--bg-2);font-weight:800;font-size:.82rem;white-space:nowrap}
+table.dt tr:last-child td{border-bottom:0}
+table.dt th:last-child,table.dt td:last-child{border-right:0}
+
+/* ============ 首页 ============ */
+.hero{
+  position:relative;overflow:hidden;border-radius:var(--radius-l);
+  padding:30px 24px 28px;margin-bottom:18px;
+  background:linear-gradient(150deg,#FF8A65 0%,#FFB25E 48%,#FFD98A 100%);
+  color:#3A2318;box-shadow:0 14px 34px rgba(226,140,90,.30)
+}
+html[data-theme="dark"] .hero{background:linear-gradient(150deg,#3A2622 0%,#4A3020 55%,#5A4526 100%);color:#FFF0E4}
+.hero::after{
+  content:"";position:absolute;right:-46px;bottom:-56px;width:210px;height:210px;border-radius:50%;
+  background:rgba(255,255,255,.22)
+}
+.hero .dot{position:absolute;border-radius:50%;background:rgba(255,255,255,.30)}
+.hero h1{font-size:1.68rem;letter-spacing:.02em}
+.hero .sub{margin:.5em 0 0;font-size:.95rem;line-height:1.8;opacity:.92;max-width:34em;position:relative}
+.hero-tags{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 0;position:relative}
+.hero-tag{background:rgba(255,255,255,.55);color:#3A2318;border-radius:999px;padding:4px 11px;font-size:.74rem;font-weight:700}
+html[data-theme="dark"] .hero-tag{background:rgba(255,255,255,.14);color:#FFEEDF}
+
+.entries{display:grid;grid-template-columns:1fr;gap:14px;margin:0 0 18px}
+@media(min-width:720px){.entries{grid-template-columns:1fr 1fr}}
+.entry{
+  display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);
+  border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+  transition:transform .18s,box-shadow .18s
+}
+.entry:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(176,120,84,.16)}
+.entry .big{font-size:2.3rem;line-height:1}
+.entry h3{font-size:1.22rem;margin:12px 0 6px}
+.entry p{margin:0;font-size:.88rem;color:var(--ink-2);line-height:1.7}
+.entry .go{margin-top:14px;display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:.86rem;color:var(--brand-d)}
+.entry.kid{background:linear-gradient(160deg,var(--brand-soft),var(--card) 62%)}
+.entry.par{background:linear-gradient(160deg,var(--teal-soft),var(--card) 62%)}
+.entry .ribbon{position:absolute;top:14px;right:14px}
+
+.grid-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(min-width:720px){.grid-cards{grid-template-columns:repeat(4,1fr)}}
+.mini{
+  border:1px solid var(--line);background:var(--card);border-radius:18px;padding:16px 14px;text-align:left;
+  box-shadow:var(--shadow-s);transition:transform .16s
+}
+.mini:hover{transform:translateY(-2px)}
+.mini .e{font-size:1.6rem;line-height:1}
+.mini b{display:block;margin:8px 0 3px;font-size:.92rem}
+.mini span{font-size:.74rem;color:var(--ink-2);line-height:1.55;display:block}
+
+/* ============ 情绪卡 ============ */
+.emo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:640px){.emo-grid{grid-template-columns:repeat(3,1fr)}}
+.emo{border-radius:20px;padding:18px 14px;text-align:center;border:1px solid var(--line);background:var(--card)}
+.emo .face{font-size:2.4rem;line-height:1}
+.emo b{display:block;margin:9px 0 4px;font-size:1rem}
+.emo span{font-size:.78rem;color:var(--ink-2);line-height:1.65;display:block}
+.emo.c1{background:linear-gradient(160deg,var(--sun-soft),var(--card))}
+.emo.c2{background:linear-gradient(160deg,var(--violet-soft),var(--card))}
+.emo.c3{background:linear-gradient(160deg,var(--pink-soft),var(--card))}
+.emo.c4{background:linear-gradient(160deg,var(--teal-soft),var(--card))}
+.emo.c5{background:linear-gradient(160deg,var(--brand-soft),var(--card))}
+.emo.c6{background:linear-gradient(160deg,var(--bg-2),var(--card))}
+
+/* 步骤 */
+ol.steps{list-style:none;padding:0;counter-reset:s;margin:0}
+ol.steps>li{
+  counter-increment:s;position:relative;padding:14px 16px 14px 58px;margin:0 0 10px;
+  background:var(--card-2);border:1px solid var(--line);border-radius:var(--radius-s)
+}
+ol.steps>li::before{
+  content:counter(s);position:absolute;left:14px;top:13px;width:30px;height:30px;border-radius:50%;
+  background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:.9rem
+}
+ol.steps>li b{display:block}
+
+/* 话术对照 */
+.say{border-radius:var(--radius-s);border:1px solid var(--line);overflow:hidden;margin:0 0 10px;background:var(--card)}
+.say-q{padding:11px 14px;background:var(--danger-soft);font-size:.86rem;font-weight:700}
+.say-a{padding:11px 14px;background:var(--teal-soft);font-size:.86rem}
+.say-q b,.say-a b{display:inline-block;min-width:4.2em}
+
+/* 折叠 */
+details.acc{border:1px solid var(--line);border-radius:var(--radius-s);background:var(--card);margin:0 0 10px;overflow:hidden}
+details.acc>summary{
+  cursor:pointer;padding:14px 16px;font-weight:800;font-size:.95rem;list-style:none;
+  display:flex;align-items:center;gap:10px
+}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::after{content:"＋";margin-left:auto;color:var(--ink-2);font-weight:800}
+details.acc[open]>summary::after{content:"−"}
+details.acc>summary .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand-d);display:grid;place-items:center;font-size:.8rem;flex:0 0 auto}
+details.acc .body{padding:0 16px 16px;font-size:.88rem;color:var(--ink-2);line-height:1.85}
+details.acc .body b{color:var(--ink)}
+
+/* ============ 游戏 ============ */
+.game{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow);overflow:hidden;margin:0 0 18px}
+.game-top{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);background:var(--card-2)}
+.game-top .ico{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:1.3rem;background:var(--brand-soft);flex:0 0 auto}
+.game-top h3{font-size:1.05rem}
+.game-top p{margin:.2em 0 0;font-size:.78rem;color:var(--ink-2)}
+.game-body{padding:18px}
+.gbar{display:flex;align-items:center;gap:10px;font-size:.8rem;font-weight:700;color:var(--ink-2);margin-bottom:12px}
+.gbar .track{flex:1;height:8px;border-radius:99px;background:var(--bg-2);overflow:hidden}
+.gbar .fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--brand),var(--sun));transition:width .3s}
+.qtext{font-size:1.02rem;font-weight:700;line-height:1.75;margin:0 0 14px}
+.opts{display:grid;gap:10px}
+.opt{
+  text-align:left;border:1.5px solid var(--line);background:var(--card-2);border-radius:15px;
+  padding:13px 15px;font-size:.94rem;font-weight:600;transition:transform .14s,border-color .14s,background .14s
+}
+.opt:hover{transform:translateX(3px);border-color:var(--brand)}
+.opt.right{background:var(--teal-soft);border-color:var(--teal)}
+.opt.wrong{background:var(--danger-soft);border-color:var(--danger)}
+.opt[disabled]{cursor:default;transform:none}
+.fb{margin-top:14px;border-radius:var(--radius-s);padding:13px 15px;font-size:.86rem;line-height:1.8;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--teal-soft);border:1px solid color-mix(in srgb,var(--teal) 34%,transparent)}
+.fb.no{background:var(--sun-soft);border:1px solid color-mix(in srgb,var(--sun) 34%,transparent)}
+.fb b{display:block;margin-bottom:3px}
+.gresult{text-align:center;padding:8px 0}
+.gresult .score{font-size:2.6rem;font-weight:900;color:var(--brand-d);line-height:1.1}
+.gresult p{font-size:.9rem;color:var(--ink-2)}
+
+/* 呼吸球 */
+.breath-stage{display:grid;place-items:center;padding:6px 0 12px}
+.breath-ball{
+  width:190px;height:190px;border-radius:50%;display:grid;place-items:center;text-align:center;
+  background:radial-gradient(circle at 34% 30%,#A8E6E1,#4FC3BC 62%,#2FA79E);
+  color:#08302E;font-weight:900;font-size:1.05rem;line-height:1.5;
+  box-shadow:0 14px 34px rgba(47,167,158,.34);transition:transform 4s ease-in-out;
+  will-change:transform
+}
+.breath-ball.out{background:radial-gradient(circle at 34% 30%,#FFD9A8,#FF9E6E 62%,#FF7A59);color:#40200F;box-shadow:0 14px 34px rgba(255,122,89,.34)}
+.breath-ball span{display:block;font-size:.74rem;font-weight:700;opacity:.85}
+.breath-meta{margin-top:14px;font-size:.86rem;color:var(--ink-2);text-align:center;font-weight:700}
+
+/* ============ 资源 ============ */
+.res{border:1px solid var(--line);border-left:6px solid var(--brand);background:var(--card);border-radius:16px;padding:16px 18px;margin:0 0 12px;box-shadow:var(--shadow-s)}
+.res.urgent{border-left-color:var(--danger);background:var(--danger-soft)}
+.res.hot{border-left-color:var(--sun)}
+.res.calm{border-left-color:var(--teal)}
+.res h4{font-size:1rem;margin:0 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.res .num{font-size:1.32rem;font-weight:900;color:var(--brand-d);letter-spacing:.04em;margin:6px 0 2px;font-variant-numeric:tabular-nums}
+.res.urgent .num{color:var(--danger)}
+.res p{margin:.3em 0 0;font-size:.84rem;color:var(--ink-2);line-height:1.75}
+.res .tel{display:inline-flex;align-items:center;gap:7px;margin-top:10px;background:var(--ink);color:var(--bg);border:0;border-radius:12px;padding:9px 15px;font-weight:800;font-size:.86rem;text-decoration:none}
+.res.urgent .tel{background:var(--danger);color:#fff}
+
+/* ============ 留言板 ============ */
+.field{margin:0 0 12px}
+.field label{display:block;font-size:.84rem;font-weight:800;margin:0 0 6px}
+.field input,.field textarea{
+  width:100%;border:1.5px solid var(--line);background:var(--card-2);color:var(--ink);
+  border-radius:14px;padding:12px 14px;font:inherit;font-size.93rem;font-size:.93rem
+}
+.field textarea{min-height:104px;resize:vertical;line-height:1.8}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--brand);background:var(--card)}
+.wall-list{list-style:none;padding:0;margin:16px 0 0}
+.wall-list li{border:1px dashed var(--line);border-radius:16px;padding:14px 16px;margin:0 0 10px;background:var(--card-2);font-size:.9rem;line-height:1.8;position:relative}
+.wall-list li .who{display:block;margin-top:8px;font-size:.76rem;font-weight:800;color:var(--brand-d)}
+.wall-list li.demo::after{content:"示例";position:absolute;top:12px;right:12px;font-size:.68rem;font-weight:800;background:var(--sun-soft);color:var(--sun);border-radius:99px;padding:2px 9px}
+
+/* ============ 模态 ============ */
+.modal{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(24,18,14,.55);backdrop-filter:blur(4px)}
+.modal.open{display:flex}
+.modal-box{width:100%;max-width:520px;max-height:86vh;overflow-y:auto;background:var(--card);border-radius:var(--radius-l);padding:22px;box-shadow:0 24px 60px rgba(0,0,0,.3);animation:pop .26s ease both}
+@keyframes pop{from{opacity:0;transform:scale(.95) translateY(12px)}to{opacity:1;transform:none}}
+.modal-head{display:flex;align-items:flex-start;gap:12px;margin:0 0 14px}
+.modal-head h3{font-size:1.16rem}
+.modal-head .x{margin-left:auto;background:var(--bg-2);border:0;border-radius:11px;width:36px;height:36px;font-size:1.1rem;font-weight:800;flex:0 0 auto}
+#posterCanvas{width:100%;border-radius:16px;border:1px solid var(--line);height:auto;background:#fff}
+
+/* 悬浮求助按钮 */
+.fab{
+  position:fixed;right:16px;bottom:18px;z-index:100;
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--danger);color:#fff;border:0;border-radius:999px;
+  padding:13px 18px;font-weight:900;font-size:.88rem;
+  box-shadow:0 10px 26px rgba(217,58,63,.42)
+}
+.fab:active{transform:scale(.97)}
+
+/* 页脚 */
+.foot{border-top:1px solid var(--line);padding:26px 0 120px;font-size:.78rem;color:var(--ink-2);line-height:1.9}
+.foot b{color:var(--ink)}
+.foot-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.foot-nav button{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:.78rem;font-weight:700}
+
+/* 打印 */
+@media print{
+  .topbar,.fab,.tool,.modal,.btn-row{display:none !important}
+  .view{display:block !important;page-break-after:always}
+  body{background:#fff}
+  .card,.game,.res{box-shadow:none}
+}
+</style>
+</head>
+<body data-page-node-id="6TYHgHxHXExTC5muu0BmfW">
+<a class="skip" href="#main" data-page-node-id="EpOE5vGOIEF7A0vFwC7W2V">跳到主要内容</a>
+
+<!-- ================= 顶部功能栏 ================= -->
+<header class="topbar" data-page-node-id="AqwrdpsDawPBCIGCvH2F1H">
+  <div class="wrap topbar-in" data-page-node-id="zAVtjMDdmr0yKevQzu8NhA">
+    <button class="brand" id="brandHome" aria-label="返回首页" data-page-node-id="E5GVUGoDNU6Rk96G5YpEkp">
+      <span class="brand-badge" aria-hidden="true" data-page-node-id="i4pNgNXFD4C8VIGU3FwhCy">☀️</span>
+      <span class="brand-txt" data-page-node-id="qOliShb3GPO6xeOsDsHsiA">
+        <b data-page-node-id="1p0kCuz3FT60hgoFOV12Bs">心晴小站</b>
+        <span data-page-node-id="kw1JSoKPlGRfj2DrkA6Dlb">斗门新青 · 儿童心理安全科普</span>
+      </span>
+    </button>
+    <span class="spacer" data-page-node-id="owQdEzh3nzAcMmZA2X1krA"></span>
+    <div class="tool" role="group" aria-label="页面功能" data-page-node-id="wmqObhODGlKRZBfZSX5XIk">
+      <button class="tbtn" id="btnRead" aria-pressed="true" title="逐段朗读：开启后，点一下任意一段就能听它朗读" aria-label="开关逐段朗读" data-page-node-id="ZWnylOFEMug7nnDA3DuJNk"><span class="ic" id="readIc" aria-hidden="true" data-page-node-id="jbgzqxL780rWRInyec6RhE">🔊</span><span class="lbl" id="readLbl" data-page-node-id="rHiWz1rJ9eLVgfje4husSq">朗读</span></button>
+      <button class="tbtn" id="btnFont" aria-pressed="false" title="切换大字模式" aria-label="切换大字模式" data-page-node-id="Hu3HS7F3QwNwWf76pWatIM"><span class="ic" aria-hidden="true" data-page-node-id="Ralk5twfL4vcMoIM8yhl51">A+</span><span class="lbl" data-page-node-id="1gOkPRAZnrYqqtOWnCTbYF">大字</span></button>
+      <button class="tbtn" id="btnTheme" title="切换深色 / 浅色" aria-label="切换深色或浅色主题" data-page-node-id="mefICTDpMZEDasqkWTV7xD"><span class="ic" id="themeIc" aria-hidden="true" data-page-node-id="0dFC1IKjZgrnVLNTTFTx0m">🌙</span></button>
+      <button class="tbtn" id="btnShare" title="生成分享海报" aria-label="生成分享海报" data-page-node-id="7AZevW8F7J6Se0L7iikGDI"><span class="ic" aria-hidden="true" data-page-node-id="xnjZ8la9HhwCgS3dGpc6OH">📤</span><span class="lbl" data-page-node-id="n2C5Udlpgya55r7qiEgUNh">分享</span></button>
+      <button class="tbtn tbtn-danger" id="btnCrisisTop" aria-haspopup="dialog" title="我现在需要帮助（打开援助电话）" aria-label="我现在需要帮助" data-page-node-id="MaQhVF9fYEBCiJMMY4GTNt"><span class="ic" aria-hidden="true" data-page-node-id="q4BYwXjMNSsRev5i6JQrUS">🆘</span><span class="lbl" data-page-node-id="IEZ134beqZrsakRLlH6wOV">求助</span></button>
+    </div>
+  </div>
+  <div class="navrow" data-page-node-id="S4FWmz9AdCYc6ISWDEIuD1">
+    <div class="wrap" data-page-node-id="PA34yoZsFp6X3flhEThuQE">
+      <nav class="tabbar" id="tabbar" aria-label="板块导航" data-page-node-id="2Z7QxTEhJzv9U0vqSIsbvN">
+        <button data-go="home" data-page-node-id="s0GoGgBh4juBfS4SxG6k9c">🏠 首页</button>
+        <button data-go="kids" data-page-node-id="B5eJqt1ppM5RSkOEuo2Mpe">🧒 儿童专区</button>
+        <button data-go="games" data-page-node-id="eLOU9tb4sJnbdWUFPOpd6Q">🎮 小游戏</button>
+        <button data-go="parents" data-page-node-id="WiuB4aTJwiIOMlpXN1HCID">👨‍👩‍👧 家长专区</button>
+        <button data-go="help" data-page-node-id="HuZRDc0AA2Id4SN8ZjC0S0">📞 求助资源</button>
+        <button data-go="wall" data-page-node-id="EiA1nWCmXfyXDOTCZgklpE">💬 我的小感悟</button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main" data-page-node-id="cnAPKkqkeSQE8r1xJT0apA">
+
+  <!-- 逐段朗读提示条（朗读模式开启时显示，可收起） -->
+  <div class="wrap" id="readHintWrap" data-page-node-id="8cVcGbiiYAdKnAFsxuNPk8">
+    <div class="note info readbar" data-page-node-id="XbeE5A3DbAeie5RQg9tuOr">
+      <span class="rb-ic" aria-hidden="true" data-page-node-id="EH2cwtO7BtKBJzlnA1H0lD">🔊</span>
+      <span class="rb-tip" title="点一下任意一段文字（或它后面的小喇叭），就会朗读这一段；再点一下停下来。" data-page-node-id="hXy7FNCAbxZKLBvXHTsF6m">想听哪段，就点哪段</span>
+      <button id="btnVoice" class="vbtn" title="换一个朗读声音" aria-haspopup="dialog" data-page-node-id="VOICE01a2b3c4d5e6f7g8">🔉 <span id="voiceName">温柔女声</span></button>
+      <button id="readHintClose" aria-label="收起这段提示，只留换声音按钮" data-page-node-id="IkwwA6PbvB0U7jgMGWxpvP">✕</button>
+    </div>
+  </div>
+
+  <!-- ================= 首页 ================= -->
+  <section class="view active" id="view-home" aria-labelledby="homeTitle" data-page-node-id="g0GGTBfbrjCb13XXy1icl2">
+    <div class="wrap" data-page-node-id="SCPHobWz7AWHmhtu1gApE2">
+      <div class="hero" data-page-node-id="zAqWiCiRYDfEAw2EfLWApg">
+        <span class="dot" style="width:58px;height:58px;left:-16px;top:-20px" data-page-node-id="LQOdJh9cAz4pBANI8qX1pC"></span>
+        <span class="dot" style="width:26px;height:26px;right:78px;top:24px" data-page-node-id="sDYjqlgdMSYfHzOlicwpRg"></span>
+        <p class="eyebrow" style="color:#7A4126" data-page-node-id="Jj9NVTBOcFxZKsMheQTUCl">珠海斗门 · 新青工业园 · 公益科普</p>
+        <h1 id="homeTitle" data-page-node-id="MGXcssWCLIdSTldEqsQ8s8">心晴小站 —— 情绪有晴天，也有人陪你</h1>
+        <p class="sub" data-page-node-id="2InK5noiy3E0OKKNrljzMT">给 8&ndash;12 岁的小朋友和爸爸妈妈的一个小网站：认识情绪、学会保护自己、找到可以求助的人。</p>
+        <div class="hero-tags" data-page-node-id="mZapygOZjCUih3LSNVExLA">
+          <span class="hero-tag" data-page-node-id="QvleeVANxqPjraQEy6RzFf">👧 儿童版</span>
+          <span class="hero-tag" data-page-node-id="hYQyurOujNFcEGjR44qUKn">👨‍👩‍👧 家长版</span>
+          <span class="hero-tag" data-page-node-id="pluAGD09IKTkWNWr940afq">📱 手机优先</span>
+          <span class="hero-tag" data-page-node-id="cDxBzv8lJwRuMLw2W6HrVW">🆓 免费公益</span>
+        </div>
+      </div>
+
+      <div class="entries" data-page-node-id="2KcoDojAbxbwNQL5QJoz48">
+        <button class="entry kid" data-go="kids" data-page-node-id="eJHWSM3zGqfQX5y6dVMVVx">
+          <span class="ribbon pill" data-page-node-id="WfokZnLbkYcGEvPvEhn7sq">8&ndash;12 岁</span>
+          <span class="big" aria-hidden="true" data-page-node-id="jLRvam6oGWorC5Zg4vpE3Z">🧒</span>
+          <h3 data-page-node-id="4riIK0QJvJzn5tcYxDTJf6">我是小朋友</h3>
+          <p data-page-node-id="qXYN5rcCriKYjfHKivPvXF">认识我的情绪 · 知道我的身体我做主 · 遇到不舒服要怎么求助 · 玩三个小游戏</p>
+          <span class="go" data-page-node-id="xqEJ4LaYxlOmgtiA6mEEYZ">进去看看 →</span>
+        </button>
+        <button class="entry par" data-go="parents" data-page-node-id="xuv6ehdbEDLEklN4yuysco">
+          <span class="ribbon pill teal" data-page-node-id="3yAEffVQ90GETzTo07EPcR">家长版</span>
+          <span class="big" aria-hidden="true" data-page-node-id="WGuTgaRGUMzoch5IHPFE9m">🧑‍🍼</span>
+          <h3 data-page-node-id="zzGlwuZcumdxF9zJVduFp8">我是家长 / 照顾者</h3>
+          <p data-page-node-id="PEusqNEi5x8TtpbqhkJCEW">简易育儿指引 · 读懂孩子的求助信号 · 一句一句教你怎么跟孩子说话 · 怎么找人帮忙</p>
+          <span class="go" data-page-node-id="SArX1gvS6A96BE8eEQxkQc">进去看看 →</span>
+        </button>
+      </div>
+
+      <div class="grid-cards" style="margin-bottom:18px" data-page-node-id="40Ebb05S3NhuYXBs5FUc0Z">
+        <button class="mini" data-go="games" data-page-node-id="GRVUj6ZGvBXDQsPlUsbLzX"><span class="e" aria-hidden="true" data-page-node-id="KYiUzXEAcbbIGmxFuUE2m2">🎮</span><b data-page-node-id="CxlwyAssGnYzDW7O0KE1Xt">趣味小游戏</b><span data-page-node-id="xpzD64npBBJx3ALorgp9RW">3 个情绪与安全小游戏</span></button>
+        <button class="mini" data-go="help" data-page-node-id="Q8bAF2bUGgYAmLIvzwZQjr"><span class="e" aria-hidden="true" data-page-node-id="0UB1dFx85IiEabh9acULGF">📞</span><b data-page-node-id="Tu09KhQBK6OsCHBlq2ZeDH">求助资源</b><span data-page-node-id="Tm0B4MtFySPV8fAwf7sWq5">珠海本地免费热线与转介</span></button>
+        <button class="mini" data-go="wall" data-page-node-id="aO4QpV3E3ctyYfoxZwq1zq"><span class="e" aria-hidden="true" data-page-node-id="8tNXPycSEJrEDLlEXmTTub">💬</span><b data-page-node-id="hGCw7T8KxzSRXHazPoQ6rF">我的小感悟</b><span data-page-node-id="QCJDggRq1amhY44OFNg9j4">匿名留言板块（原型）</span></button>
+      </div>
+
+      <div class="card" data-page-node-id="uNwfg6KOgewcq9S5pfwAP7">
+        <div class="sec-head" data-page-node-id="jDUaa4kXcGEKIOWen3luCS">
+          <span class="ico" style="background:var(--teal-soft)" aria-hidden="true" data-page-node-id="jHvJbwckPuO5eHA4D6qL4s">🧭</span>
+          <div data-page-node-id="T7RPEQ77Kboshmw1FcDMff">
+            <h2 data-page-node-id="nPwhQTM075EeK8qf1VOQ84">从这里开始：三种最需要知道的</h2>
+            <p data-page-node-id="OGOXFPD853WLbbo3aFKgjT">页面很长也没关系，先记住这三句话就够了。</p>
+          </div>
+        </div>
+        <ol class="steps" data-page-node-id="OVMXh7oek4eL1vdDGczvxg">
+          <li data-page-node-id="c7ZSBc7gpx2xU2MI6NjVMW"><b data-page-node-id="2sjT6wRA1zYJ3xFWBfBAKX">所有的情绪都是正常的</b>开心、难过、生气、害怕都会来，也都会过去。情绪没有对错，说出来就轻一点。</li>
+          <li data-page-node-id="3dvLqI7oI2RkHoS0PUwlEF"><b data-page-node-id="KoH7ctBSzJS4gtDFQYDLGA">让身体不舒服的接触，都可以拒绝</b>不管对方是谁。大声说不要，赶快走开，然后告诉一个你信任的大人。</li>
+          <li data-page-node-id="ABgH9YgcY6jL95bIN9Nyda"><b data-page-node-id="wNFUhVqXGjf82zqVpOmNy2">需要帮助时，可以打免费电话</b>12356（全国心理援助热线）和 0756-8120120（珠海市心理援助热线），24 小时都有人接。</li>
+        </ol>
+        <div class="btn-row" data-page-node-id="A6oDNb0ytIuuzIcx3DfPDe">
+          <button class="btn btn-primary" data-go="kids" data-page-node-id="wGMYUFxHe3uNokOe3AZEuP">我是小朋友，先去看看</button>
+          <button class="btn" data-go="parents" data-page-node-id="vq4KfpRC99bAMlgD7HZf3G">我是家长，先去看看</button>
+        </div>
+      </div>
+
+      <div class="note info" data-page-node-id="c3xVBHFl5N3YJ6wKW6cUhH">
+        <b data-page-node-id="XggDmvIcZxXnkZ57OixYrE">请先知道：</b>本站是「服务领导力」课程小组的<strong data-page-node-id="s2KFj7gVukQyzqpDa9xhv8">网页原型（Prototype）</strong>，只做心理安全<strong data-page-node-id="mlo8nhSC1MEtmFau83AL0U">科普</strong>，
+        <strong data-page-node-id="HKfIMrXN6HIAi7wC3ghPGi">不提供诊疗、心理咨询或线上个案服务</strong>，也不收集任何真实的儿童个人信息。
+        如果你或家人正处于紧急危险中，请立刻拨打 <b data-page-node-id="j6na8htBX1mdc2M3QzUnGc">110</b>（报警）或 <b data-page-node-id="hF9RfWpDbFQnmLCSG62psX">120</b>（急救）。
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 儿童专区 ================= -->
+  <section class="view" id="view-kids" aria-labelledby="kidsTitle" data-page-node-id="9g8AC9oLLFRWgSeorOZokD">
+    <div class="wrap" data-page-node-id="DPEm1gghPR7mSSUIU0yQKp">
+      <div class="card soft flat" style="padding:16px 18px" data-page-node-id="GuY8Pny54PoEF0e83Y5Hxj">
+        <button class="btn btn-ghost" data-go="home" style="padding:6px 10px" data-page-node-id="bBR2kESym0tDwLgCzLTHG4">← 返回首页</button>
+      </div>
+
+      <div class="sec-head" data-page-node-id="tzUBeCCmHA3yQuY59ynh7u">
+        <span class="ico" style="background:var(--brand-soft)" aria-hidden="true" data-page-node-id="YtabkLndecR6FJzLZs3Ugf">🧒</span>
+        <div data-page-node-id="FXAf5xrtEqvBDRW7jVzbah">
+          <p class="eyebrow" data-page-node-id="EwlDLRkEr90CmZJKXDWLRZ">儿童版 · 8&ndash;12 岁</p>
+          <h2 id="kidsTitle" data-page-node-id="zBFu6ypRNMQJNCftITUPDU">小朋友专区</h2>
+          <p data-page-node-id="mOQooozMLa7X7I1fi67cu2">这里的字很大、句子很短。慢慢看，不着急。</p>
+        </div>
+      </div>
+
+      <!-- 1 认识情绪 -->
+      <div class="card" id="kidsEmo" data-page-node-id="mclPvD7WgnEthtd3FB9kpV">
+        <div class="sec-head" data-page-node-id="QQNFRqTt7289au1nhxncCV">
+          <span class="ico" style="background:var(--sun-soft)" aria-hidden="true" data-page-node-id="3O7dFVjcIPXEI8CwOYJLa6">😊</span>
+          <div data-page-node-id="57R7aU8kbKvsKS4kw8denv">
+            <h3 style="font-size:1.14rem" data-page-node-id="IyN5deJSgKGk68zk3qEn7i">1. 认识我的情绪</h3>
+            <p data-page-node-id="LYCRkJy59QySfruj8rccia">每个人都有情绪，就像天气一样，今天晴、明天雨。</p>
+          </div>
+        </div>
+        <div class="emo-grid" data-page-node-id="BkGzOonrD1wKTpkiqGFbKm">
+          <div class="emo c1" data-page-node-id="YNxfo4mBvDCaGCEUPJkefo"><span class="face" aria-hidden="true" data-page-node-id="pVn3JQM3ABvieCJk38T1As">😄</span><b data-page-node-id="8pvu7mjAnGDdLT4DCF8Ni5">开心</b><span data-page-node-id="HaG8rntba7Fufb4s3sc2mu">想笑、想跳、想告诉别人</span></div>
+          <div class="emo c2" data-page-node-id="9pe9dTGT4tmzg3dYpEDdHT"><span class="face" aria-hidden="true" data-page-node-id="8fxYP61d9GMAaVv2WxtARK">😢</span><b data-page-node-id="oKeO5Q3J030nLxX1cGqeN9">难过</b><span data-page-node-id="Y76r0sgLU7sXjt260Zl15t">想哭、没力气、不想说话</span></div>
+          <div class="emo c3" data-page-node-id="Z3mE0PYkDu7DFmkkTmD3OI"><span class="face" aria-hidden="true" data-page-node-id="1UeHOpLQxf5HEJuiOHCKit">😠</span><b data-page-node-id="fcdz2TRD1CtxMhZrLHWIXL">生气</b><span data-page-node-id="uymJdmQqvoXCsd5AQ4GREQ">脸变热、拳头握紧、想大喊</span></div>
+          <div class="emo c4" data-page-node-id="tYZJbB3rRseDtoRf4tO3ki"><span class="face" aria-hidden="true" data-page-node-id="9QI1zsXfJbX5v6326TqfxF">😨</span><b data-page-node-id="CW9x2x4GMPIiXGqIktgMKO">害怕</b><span data-page-node-id="lM1xS0bIx5DdAnK9OM8Dup">心跳很快、手心出汗、想躲起来</span></div>
+          <div class="emo c5" data-page-node-id="QBwPaQv5IalXbrcrSc6647"><span class="face" aria-hidden="true" data-page-node-id="K9I9qogH20HqKc3bmAZCxh">😲</span><b data-page-node-id="pG9zEBwu22QOL18C7BHX5x">惊讶</b><span data-page-node-id="JlpRawzoXniIqo4dvRVscS">睁大眼睛、张大嘴</span></div>
+          <div class="emo c6" data-page-node-id="L210K10gWi5XoosZD1T3Fa"><span class="face" aria-hidden="true" data-page-node-id="qnYaHugOEALctnJM3aA0CX">😳</span><b data-page-node-id="k0gXk7134NMEWQYh6z6ezM">害羞</b><span data-page-node-id="IBUBKfATeLv4ejMpqp8wzT">脸发烫、说话变小声</span></div>
+        </div>
+        <h4 class="h" data-page-node-id="shTdtabvP1fQchYHoCjhYc">三件要记住的事</h4>
+        <ul data-page-node-id="QRKLrNKbRvLg7vCnLAfQ6e">
+          <li data-page-node-id="EMBKCWvyLFj8KQiW7e9xFY"><b data-page-node-id="oa3hLHS1dFFPczX8nTmV5E">情绪没有好坏。</b>会生气、会害怕，不代表你是坏孩子。</li>
+          <li data-page-node-id="QSvJAwe0ROrB1CB1ifE6du"><b data-page-node-id="cM0DvTQTGaj3MHdyT1oHWO">情绪会过去。</b>很难受的时候，深呼吸几次，数到十，它就会慢慢变小。</li>
+          <li data-page-node-id="oza5CZasDYIuVbBIMiunbv"><b data-page-node-id="k70nTnyIomRd9IdeYOjx4a">说出来就轻一点。</b>可以告诉爸爸妈妈、爷爷奶奶、老师，也可以画下来、写下来。</li>
+        </ul>
+        <div class="note" data-page-node-id="BUAk1sgQqleNfEwerMtEPF">
+          <b data-page-node-id="YvGyXtXwvVSAn8HEvrgAfE">身体的提醒：</b>心里不舒服时，身体常常先有反应——肚子痛、头晕、睡不着、不想吃饭。
+          如果身体一直不舒服，要告诉家长，一起去看医生。
+        </div>
+      </div>
+
+      <!-- 2 自我保护 -->
+      <div class="card" id="kidsSafe" data-page-node-id="lVaaPG1XApDGFOl6dtBtHm">
+        <div class="sec-head" data-page-node-id="S0rkJmwfUtNLD13Ivmg48o">
+          <span class="ico" style="background:var(--teal-soft)" aria-hidden="true" data-page-node-id="2FWdyJXhHbckoU2iTvm6BH">🛡️</span>
+          <div data-page-node-id="SxUv7qCzBdDkRdxthO4Pze">
+            <h3 style="font-size:1.14rem" data-page-node-id="1NpOup3pXwzaCV7ddthimD">2. 我的身体，我做主</h3>
+            <p data-page-node-id="pEOub8Sw3GaK01ZbF68sXB">你的身体是你自己的，别人要碰，需要你同意。</p>
+          </div>
+        </div>
+        <h4 class="h" data-page-node-id="Iyq9VxDjzzD6xCDHbwJrnR">什么是隐私部位</h4>
+        <p data-page-node-id="bewffbuNxgvWAu0e81zSzr">穿背心和短裤时盖住的地方，就是<b data-page-node-id="BbEqn53YNPmHUS9XDMPWBU">隐私部位</b>。除了两种情况，任何人都不能随便看、随便碰：</p>
+        <ul data-page-node-id="LiPVpjFYqDfA9aLFOxmmsm">
+          <li data-page-node-id="vlk5oi6QdWXSrAXoFBYnWW">爸爸妈妈帮你洗澡、或者你生病时医生帮你检查——而且要有家人在旁边。</li>
+          <li data-page-node-id="jY5tPgrnj9TzcfLQViVG0T">其他任何时间、任何人，你都可以说「不可以」。</li>
+        </ul>
+        <h4 class="h" data-page-node-id="aJ1WT5DkPhFQbOz7ekcray">遇到这五种情况，要立刻告诉大人</h4>
+        <ul data-page-node-id="PEFjz3HWxjKrdCUw6m93FI">
+          <li data-page-node-id="wPLfPsFzDxBBVBNSUOwdWd"><b data-page-node-id="SWuLGXp5ih7RBZUFMxMyLu">有人要看你的隐私部位</b>，或者要给你看他的。</li>
+          <li data-page-node-id="juqmcovSEoP9hIswhnYYVD"><b data-page-node-id="8llupZpO9iE0hoN17V2MxV">有人用奇怪的话说你</b>，或者给你看不舒服的图片、视频。</li>
+          <li data-page-node-id="A9dfAWVng3rjm7GWbg4nhk"><b data-page-node-id="b3EwUHCaKoB1bvDidBUWjF">有人碰你让你不舒服</b>，就算是认识的叔叔阿姨、老师也一样。</li>
+          <li data-page-node-id="g06JFtbxnYtWxtDMpq5BDG"><b data-page-node-id="uJAu6e33qX6JDlHhUS6Mf8">有人要你单独跟他去没人的地方</b>，还说不要告诉别人。</li>
+          <li data-page-node-id="jsxBHUoP1P323kBNGXaXF2"><b data-page-node-id="FSm6PTALTH60qTSCCWBDNf">有人要你保守「秘密」</b>，尤其这个秘密让你觉得害怕或难受。</li>
+        </ul>
+        <div class="note danger" data-page-node-id="LMEKk6KZHz7S17wTbaENit">
+          <b data-page-node-id="G2KaS5ciWD9uIcohEJKUE3">重要：</b>如果有人让你保密、还给你买礼物或者威胁你，<b data-page-node-id="4qhnyC4C4ZTo2vTjGHCm55">那不是你的错</b>，一定要说出来。
+          会伤害你的人，往往是你认识的人，所以「认识」不等于「安全」。
+        </div>
+      </div>
+
+      <!-- 3 三步求助 -->
+      <div class="card" id="kidsHelp" data-page-node-id="CUNQbTf0Vkud7JCBvamH1O">
+        <div class="sec-head" data-page-node-id="58FaDs6UxwqjUtozvAuDws">
+          <span class="ico" style="background:var(--violet-soft)" aria-hidden="true" data-page-node-id="k3Iic1IjrNqPGvmNK3XO0d">🆘</span>
+          <div data-page-node-id="CUT5djnvYR9DbDHSAY8KdX">
+            <h3 style="font-size:1.14rem" data-page-node-id="4it5MJW5OrxFfDG8AH3RXa">3. 遇到不舒服，三步求助</h3>
+            <p data-page-node-id="H89pjQbuOgC9egsT2DC1Ge">记住这三步，反复练几次，就能做出来。</p>
+          </div>
+        </div>
+        <ol class="steps" data-page-node-id="lFx2gOaLwHjpRCUJGAP9q8">
+          <li data-page-node-id="aH6I3kdK2lz0XNc4f03X8C"><b data-page-node-id="YErkzPN95GXKeNxCK0yYDJ">第一步：大声说「不要」「我不喜欢」</b>声音越大越好，让旁边的人听到。</li>
+          <li data-page-node-id="DL3M36PVbzvj1KHDi8bM8j"><b data-page-node-id="pTWXLSDvFgZua5fc4dcRvC">第二步：马上离开</b>跑到人多的地方，或者跑到你认识的大人身边。</li>
+          <li data-page-node-id="IDhmKxLApRGaFWsu7rhbRl"><b data-page-node-id="luBRFLPDezfEnOoFkH5CwC">第三步：告诉一个信任的大人</b>爸爸妈妈、爷爷奶奶、老师、邻居都可以。<b data-page-node-id="SlML65BqEfBlk2oU5ovLGs">如果第一个人没帮你，就继续说，一直说到有人帮你为止。</b></li>
+        </ol>
+        <h4 class="h" data-page-node-id="a3gjP7GEYd4E9efD1M7bbc">小练习：写下我最信任的大人</h4>
+        <p class="small muted" data-page-node-id="jvKJ5qssDAxmVLBbwZkDvM">写下来的内容只会存在你自己的手机上，不会上传到任何地方。</p>
+        <div class="field" data-page-node-id="p7jJxyrNII8m5YCbEZx1oi">
+          <label for="trustAdult" data-page-node-id="Q6HBLaBR9GRVTfsGkiNCas">我最信任的大人是（可以写名字或称呼）</label>
+          <input id="trustAdult" type="text" maxlength="40" placeholder="例如：妈妈、李老师、奶奶……" data-page-node-id="H6QwGPs2WwOr13JvFh4vKr">
+        </div>
+        <div class="field" data-page-node-id="qZ4PuLQ6EVX90QqpZFyuuw">
+          <label for="trustPhone" data-page-node-id="nuI4idj4cRtCHcTsi8Tk9O">可以打给 ta 的电话（可选）</label>
+          <input id="trustPhone" type="tel" maxlength="30" placeholder="例如：138****0000" data-page-node-id="Dej7l5b6BZawvgjRgVrvdQ">
+        </div>
+        <div class="btn-row" data-page-node-id="HFPKnh69sp79q5mHaYkjZI">
+          <button class="btn btn-primary" id="saveTrust" data-page-node-id="Z6FPwlk5VEix1R8GGbNcxI">保存在本机</button>
+          <button class="btn" id="showTrust" data-page-node-id="Ptp8i7c24cHMwa2dhwtsfc">看看我写的</button>
+        </div>
+        <p class="small muted" id="trustOut" style="margin-top:10px" data-page-node-id="cwg6GecQA1mv3scYtvqfvQ"></p>
+      </div>
+
+      <div class="card soft" data-page-node-id="VmpJabLOGy9DIVm1y6O7n3">
+        <h3 class="h" style="margin-top:0" data-page-node-id="i5Pa3ymoIj0hGDHfvk2FnJ">去玩小游戏 →</h3>
+        <p class="muted small" data-page-node-id="F9jOvZwCTMulZQWggWNdLb">3 个游戏：情绪猜猜看、安全小卫士、心情呼吸操。</p>
+        <div class="btn-row" data-page-node-id="2cvoLD0nBAmzHRWUAsKHOg"><button class="btn btn-primary" data-go="games" data-page-node-id="ijTDqxcviHFOWBsBdUG5vW">开始玩</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 小游戏 ================= -->
+  <section class="view" id="view-games" aria-labelledby="gamesTitle" data-page-node-id="fPDraBAObs6kVETdymbaCN">
+    <div class="wrap" data-page-node-id="we7cTVCKgTdfOUWZkc6wC4">
+      <div class="card soft flat" style="padding:16px 18px" data-page-node-id="e4wb8n76CYJ1HzXPkae17A">
+        <button class="btn btn-ghost" data-go="home" style="padding:6px 10px" data-page-node-id="Gtxheupc1F7ilF5lNNChWH">← 返回首页</button>
+      </div>
+
+      <div class="sec-head" data-page-node-id="h64OuND32GugZ0ouledZdz">
+        <span class="ico" style="background:var(--brand-soft)" aria-hidden="true" data-page-node-id="QKeIMguJFTTmNhAg2pdGca">🎮</span>
+        <div data-page-node-id="N3LD7O0lFE3rjrCYpowZAW">
+          <p class="eyebrow" data-page-node-id="icvfbdQ8SfWyXWgDXZPP9c">互动模块 ×3</p>
+          <h2 id="gamesTitle" data-page-node-id="e3JidD47ZgFDgDkYEONful">趣味小游戏</h2>
+          <p data-page-node-id="vsVtUoHCsD2LlLutczGNos">不用打分、不用比谁厉害。玩完就有收获。</p>
+        </div>
+      </div>
+
+      <!-- 游戏一 -->
+      <div class="game" id="game1" data-page-node-id="yqqfUqU3eswtmFxfDLxWIL">
+        <div class="game-top" data-page-node-id="JP2KYlXTGqBQWOLSGGln2R">
+          <span class="ico" aria-hidden="true" data-page-node-id="TeyQNxKrJUkfzeOvLbgUiP">🎭</span>
+          <div data-page-node-id="DJwl0n9Wa4ScHZXUKLjgBp">
+            <h3 data-page-node-id="URUlHgOhDOPhnAyZE6836B">游戏一 · 情绪猜猜看</h3>
+            <p data-page-node-id="ZqKpi4PJ1hvpGqDiC09Yj5">看看发生了什么事，猜猜他是什么心情</p>
+          </div>
+        </div>
+        <div class="game-body" data-page-node-id="6nb5e2O7HNC4ulKbrDUXwQ">
+          <div class="gbar" data-page-node-id="64ZtlH3RZSZwpsGBuOrW5R"><span id="g1step" data-page-node-id="F22FPX5FHLZHUP4dsKdhfV">第 1 / 6 题</span><span class="track" data-page-node-id="CfxV12qupvsSzbShIA7uAq"><span class="fill" id="g1fill" data-page-node-id="R654shFmoq5QV6tIC68s3x"></span></span><span id="g1score" data-page-node-id="7rj9gN7v2CIbK5LzkNnV6d">⭐ 0</span></div>
+          <div id="g1stage" data-page-node-id="bHAtWAdv2PiFnlNtnsbtMz"></div>
+          <div class="fb" id="g1fb" role="status" data-page-node-id="A3RMnLDmGKCIFFbDFl5sL2"></div>
+          <div class="fb" id="g1res" role="status" data-page-node-id="urERXsOhmpwOdX8n5z1Pkv"></div>
+          <div class="btn-row" id="g1btns" data-page-node-id="0cDZzpgBfUO78BS3t1ZH0E"></div>
+        </div>
+      </div>
+
+      <!-- 游戏二 -->
+      <div class="game" id="game2" data-page-node-id="sWcd65devpyfwi8VASP3PB">
+        <div class="game-top" data-page-node-id="g6bVVWfGMzQZMwaKoDHT2t">
+          <span class="ico" style="background:var(--teal-soft)" aria-hidden="true" data-page-node-id="GPHsUHK1cbENNqpEo6HJCH">🛡️</span>
+          <div data-page-node-id="gsAdkVDy3YqLZN8UKGEjHZ">
+            <h3 data-page-node-id="sCbMzUXhj1XytlI6g9oiwE">游戏二 · 安全小卫士</h3>
+            <p data-page-node-id="exYNPmEs5Az9PWA6D1NDqC">下面这句话对不对？点「对」或「错」</p>
+          </div>
+        </div>
+        <div class="game-body" data-page-node-id="IoHRsFdkGblgWxX3fmOYKO">
+          <div class="gbar" data-page-node-id="3NdvOS2U3EQh4JaPeY9vmc"><span id="g2step" data-page-node-id="3H583RQs1wtELClfSuQ9qy">第 1 / 6 题</span><span class="track" data-page-node-id="j5WG2AMuGXmxTxENjsun7j"><span class="fill" id="g2fill" data-page-node-id="8Nw6ALYWXcFuB9x5cNI0gW"></span></span><span id="g2score" data-page-node-id="vOF3OITd2LkE2h9lCT4t7b">⭐ 0</span></div>
+          <div id="g2stage" data-page-node-id="DlFkdQvdrHM8V6sGVtV5w5"></div>
+          <div class="fb" id="g2fb" role="status" data-page-node-id="L1uvl7hzX5BXwofXSFnkBm"></div>
+          <div class="fb" id="g2res" role="status" data-page-node-id="HsPqccDX38Rth0wIHroNww"></div>
+          <div class="btn-row" id="g2btns" data-page-node-id="0JhxaPmKkyR4ckmjcFQNHc"></div>
+        </div>
+      </div>
+
+      <!-- 游戏三 -->
+      <div class="game" id="game3" data-page-node-id="q8yTlTEfaQpZLywJDVfPaY">
+        <div class="game-top" data-page-node-id="qB5mlxg0q6ZhZMIDLvalP6">
+          <span class="ico" style="background:var(--violet-soft)" aria-hidden="true" data-page-node-id="V2RTFBwnsT97dFG3uhD9Fz">🌬️</span>
+          <div data-page-node-id="UzrcPCjSz4aGLEzqhm2qch">
+            <h3 data-page-node-id="n3JIGAQh3WMDCgHg07jPCL">游戏三 · 心情呼吸操</h3>
+            <p data-page-node-id="WlOZLu5JOBUilYLtOoM1Dy">闻花香，吹蜡烛：跟着圆圈一起呼吸</p>
+          </div>
+        </div>
+        <div class="game-body" data-page-node-id="cvHDhGBNnDTv2ZzDwDkwUu">
+          <div class="breath-stage" data-page-node-id="YgeVhaqIkHpq8TPHIMyzbf"><div class="breath-ball" id="breathBall" data-page-node-id="TGJMgvtPaI5ZtoPzHQ38Iv"><span id="breathText" data-page-node-id="MBZHSG3Rk90PKuXdHM1gur">准备好了吗？</span><span id="breathSub" data-page-node-id="t0mfA6kBUg8QtCxefVMtw1">点下面的按钮开始</span></div></div>
+          <div class="breath-meta" id="breathMeta" data-page-node-id="cjr0F3nsHrXCOo5m14S7PY">建议做 6 次，大约 1 分钟</div>
+          <div class="btn-row" style="justify-content:center" data-page-node-id="4UjJyOIGX9ciixjjSZEBkY">
+            <button class="btn btn-primary" id="breathStart" data-page-node-id="30PApmDNw22dgh56krEteF">开始呼吸</button>
+            <button class="btn" id="breathStop" disabled data-page-node-id="rnGaxlzGVzwsdUivNh5AlN">停下来</button>
+          </div>
+          <div class="note info" style="margin-top:14px" data-page-node-id="gXr1qCMAGoe10UDJxKzwxC">
+            <b data-page-node-id="DXwGAoBRknseG8iPqCa0Gt">怎么做：</b>吸气的时候，像闻一朵很香的花，慢慢用鼻子吸 4 秒；
+            呼气的时候，像吹灭一根蜡烛，慢慢用嘴巴呼 6 秒。做 6 次就好。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 家长专区 ================= -->
+  <section class="view" id="view-parents" aria-labelledby="parTitle" data-page-node-id="ThBqmGcNno9MAcGrj2zgUs">
+    <div class="wrap" data-page-node-id="9hiPXSsbg8xsSkyenEpp7Q">
+      <div class="card soft flat" style="padding:16px 18px" data-page-node-id="hm9JyaljneHmvzjucsLeUT">
+        <button class="btn btn-ghost" data-go="home" style="padding:6px 10px" data-page-node-id="ADP0oerUAfHxyx2PAaNKCD">← 返回首页</button>
+      </div>
+
+      <div class="sec-head" data-page-node-id="fI5Vk77b1WrnzA1fqBQUMU">
+        <span class="ico" style="background:var(--teal-soft)" aria-hidden="true" data-page-node-id="GxN1VUD2KEaDxNwHD09OHU">🧑‍🍼</span>
+        <div data-page-node-id="dblVZAVenQc95AFPqkKzEn">
+          <p class="eyebrow" data-page-node-id="vvwY5QSoRCjnqRhVxoKB4B">家长版 · 忙碌也能看完</p>
+          <h2 id="parTitle" data-page-node-id="y5PbuEDW4ZAdCgS7acG2qi">家长 / 照顾者专区</h2>
+          <p data-page-node-id="X7arAZYS1t3k6hCNBmARCT">每一节都能在 3 分钟内看完，今晚就能用上。</p>
+        </div>
+      </div>
+
+      <div class="card" id="parA" data-page-node-id="0dmsMXODDGwlfG4otzcwz3">
+        <div class="sec-head" data-page-node-id="DIVg5XBe0EqcgF0HIsUUb7">
+          <span class="ico" style="background:var(--brand-soft)" aria-hidden="true" data-page-node-id="R9C66CxACZRutl5jPCofVq">1️⃣</span>
+          <div data-page-node-id="KpEDyHEEn4UHx64zcnB69E"><h3 style="font-size:1.1rem" data-page-node-id="0ejtGvS6mPWGHYAUxii0WD">8&ndash;12 岁的孩子在想什么</h3><p data-page-node-id="G4tKR0idjBp8d6RVRo4pnm">这个年龄的孩子，开始在意「别人怎么看我」。</p></div>
+        </div>
+        <ul data-page-node-id="y0S4A4j6DGbRIWmQ5gUhhN">
+          <li data-page-node-id="ikUZySDLpO8CprX64r9udw"><b data-page-node-id="ev7BCPFouMCASYy2rIaiOq">想要朋友，也怕被排挤。</b>被同学笑比被父母骂更让他难受。</li>
+          <li data-page-node-id="ElK8bjS8tSjEFStXJVh4Q1"><b data-page-node-id="09hPg6TXl0IoT3r7qp5Xe7">开始有「不能说的秘密」。</b>不再什么都告诉父母，这是正常的成长。</li>
+          <li data-page-node-id="T8jBDAfW3AnhKtfK9lkz6l"><b data-page-node-id="oqIIC8skNHD6GgGmCm6tei">会用身体表达情绪。</b>肚子痛、头痛、不想上学，可能是心里有事。</li>
+          <li data-page-node-id="L4lbafP6K42or5Wr2xp1mr"><b data-page-node-id="TcLA9cFYwPmu3b73K6Ngna">需要被看见。</b>一句具体的好话，胜过一件新玩具。</li>
+        </ul>
+      </div>
+
+      <div class="card" id="parB" data-page-node-id="AW2UGwUnokC0T9BeVQh6hV">
+        <div class="sec-head" data-page-node-id="KTku9sMHYtPBVQkABJYAXM">
+          <span class="ico" style="background:var(--sun-soft)" aria-hidden="true" data-page-node-id="z4BY221OfMeoDnRgUrvhHr">2️⃣</span>
+          <div data-page-node-id="fjDncvdiPptRzePPDudVys"><h3 style="font-size:1.1rem" data-page-node-id="JqZnV7hXzCUnunUGFh3FhQ">情绪共情三步：看见 &rarr; 命名 &rarr; 允许</h3><p data-page-node-id="CBABW3q0YsyMlGDvOQdqHU">孩子闹情绪时，先别急着讲道理。</p></div>
+        </div>
+        <ol class="steps" data-page-node-id="tCw3BUqXmallBUGzDuDHy6">
+          <li data-page-node-id="HdXBuM6qbyidf4kx5BZjFo"><b data-page-node-id="DvAFeq4dxmup92vonhKWr9">看见：</b>蹲下来，看着他的脸，「我看你好像很不开心。」（先不评价）</li>
+          <li data-page-node-id="EwUkjm2zXlxmjDkEwfZfTH"><b data-page-node-id="yp9RbWKUl2aYU4oQiLfgKV">命名：</b>帮他把情绪说出来，「是不是觉得被冤枉了，所以很委屈？」（说错了也没关系，他会纠正你）</li>
+          <li data-page-node-id="HCaoXPBPK2nRyfrY5lTwP8"><b data-page-node-id="IsLabwHRxZ6oLomfcRnudb">允许：</b>「生气是可以的，我们可以生气，但不可以打人。」（接纳情绪，限制行为）</li>
+        </ol>
+        <div class="note" data-page-node-id="ZANUrf54dt5nvDIIkJHZbd">
+          <b data-page-node-id="4kekfflmb7uPYyMQmRPYQp">为什么有用：</b>孩子情绪上来时，大脑负责讲道理的部分几乎是「关机」的。先把情绪接住，他才听得进后面的话。
+        </div>
+      </div>
+
+      <div class="card" data-page-node-id="f6ERp4uY5ofLMG4i3qyPa4">
+        <div class="sec-head" data-page-node-id="7oCcNUKxRwTLUDIu87FhCk">
+          <span class="ico" style="background:var(--violet-soft)" aria-hidden="true" data-page-node-id="Z9bFhxy3vAcLFCaCcJYS4m">💬</span>
+          <div data-page-node-id="jjZB1yjoOkdHGIAduK40bq"><h3 style="font-size:1.1rem" data-page-node-id="Au7W1pexj4sjFQ3KgFTRbR">换一句话说，效果差很多</h3><p data-page-node-id="tx6QLy4ie626re4naoUCEy">左边常说，右边更有效。挑一两句先试试。</p></div>
+        </div>
+        <div class="say" data-page-node-id="3sfaibXKDwnBiR1J3I7eNQ"><div class="say-q" data-page-node-id="0GLg7bhROcxdTWQmlwDmis"><b data-page-node-id="kVvQUtmob8zSHD6qFcGNkf">少说：</b>哭什么哭，有什么好哭的！</div><div class="say-a" data-page-node-id="aw5DtG69Z98lQQsGFlPlMH"><b data-page-node-id="QOdNwjA3LN6z9meG9y3vAX">可以说：</b>你现在很难过，我陪你一会儿，等你舒服点再告诉我发生了什么。</div></div>
+        <div class="say" data-page-node-id="1NhhliwIuSu8w5GtgvQvoC"><div class="say-q" data-page-node-id="j5lNGi3Oz7t2un963tBVaO"><b data-page-node-id="OOShbTdmjrHCTxvE6M9TJt">少说：</b>你怎么这么笨，这都不会！</div><div class="say-a" data-page-node-id="5QKTyIXFkTK9i9L1MoLCGk"><b data-page-node-id="sLAarxbXqFc1Mwc0WtTySB">可以说：</b>这道题确实有点难，我们一起来看看第一步该做什么。</div></div>
+        <div class="say" data-page-node-id="jbz6VWDjJdmDvLuChxPRNE"><div class="say-q" data-page-node-id="Cy7IDgv0GFPLDSygu8YVy5"><b data-page-node-id="Wlo2sBMkNjeDTlAJvaNKjU">少说：</b>再玩手机我就把它砸了！</div><div class="say-a" data-page-node-id="CUz9pTOGtTBpgbIV52nuR3"><b data-page-node-id="E3QABOefwsPd74x4PV7uSB">可以说：</b>再看 10 分钟就收起来，你自己定闹钟，还是我帮你定？</div></div>
+        <div class="say" data-page-node-id="2clXYw6QL1avncB3UDaaAZ"><div class="say-q" data-page-node-id="li7Yk2fzatUmVWMyWUFjuJ"><b data-page-node-id="ERJK6WcaMvEzvGeqVQQLNf">少说：</b>我这么辛苦都是为了你。</div><div class="say-a" data-page-node-id="d3K4h1EL5KfL0ZkisXaG8y"><b data-page-node-id="W6TXbUnC3vohd1iiQy58Bp">可以说：</b>爸爸妈妈上班很累，但还是很想跟你聊聊天，今天学校里有什么好玩的事？</div></div>
+        <div class="say" data-page-node-id="lqA79sZUWpJ2UxP9HKyLSx"><div class="say-q" data-page-node-id="4cfI7dqxz0MujQTcY6aqGS"><b data-page-node-id="nlVoB1gzWav1PDa48Algvd">少说：</b>别说了，大人的事小孩别管。</div><div class="say-a" data-page-node-id="CLexb5TNSAw8vxaeWAAjJ2"><b data-page-node-id="Q60nNT942JDUbNKnLHy8lG">可以说：</b>这件事有点复杂，我先简单讲给你听，有不懂的你再问我。</div></div>
+      </div>
+
+      <div class="card" id="parC" data-page-node-id="31NWor8nOgh3H69E8EE0Bp">
+        <div class="sec-head" data-page-node-id="oIfLXkT99C0I9Ofc3CVg0x">
+          <span class="ico" style="background:var(--teal-soft)" aria-hidden="true" data-page-node-id="FsFPCS4uwGXXVNHlqB4sVM">⏱️</span>
+          <div data-page-node-id="2vuAYljbLaoYGiQXsC7SSE"><h3 style="font-size:1.1rem" data-page-node-id="nn7wJ4IqMhyuvEOGw8DJKZ">每天 15 分钟「专注陪伴」</h3><p data-page-node-id="zENH6cf19Zxf0h4cBFQivJ">时间少不要紧，关键是「专注」。</p></div>
+        </div>
+        <ul data-page-node-id="j29h3xVcNptaDqCdB2WFzZ">
+          <li data-page-node-id="kMVwzVqfHQio2fh6oLmUbu">把手机翻过来放，15 分钟内不看。</li>
+          <li data-page-node-id="0AXBSpkV1jMd34lzBGFbwG">让孩子选做什么：散步、拼积木、一起洗碗都可以。</li>
+          <li data-page-node-id="CPRFO8axazrLtLI9XLcR9F">只描述、不纠正：「你搭的这个桥好长。」「碗洗得很干净。」</li>
+          <li data-page-node-id="UGvbMuLthHRY9WpO8AHv0s">睡前 5 分钟问一句：「今天有没有什么让你开心或者不开心的事？」</li>
+        </ul>
+        <div class="note info" data-page-node-id="bwloWtezrJS3l5546JUWoG">
+          <b data-page-node-id="qACyr4IaQsCP26p9iMMhrw">加班回家的父母：</b>工作太忙时，可以改成「每天一个电话或一条语音」。
+          孩子在意的不是时长，而是「你记得我」。
+        </div>
+      </div>
+
+      <div class="card" id="parD" data-page-node-id="WauT4moC319vEOHKjnU1km">
+        <div class="sec-head" data-page-node-id="87Ec3qNuqzUChu1t0L9Fd2">
+          <span class="ico" style="background:var(--sun-soft)" aria-hidden="true" data-page-node-id="wOEgGGOzJzKCPwoF2GUYva">📶</span>
+          <div data-page-node-id="GGw7Y6ctke9ZBLN8HfT4M1"><h3 style="font-size:1.1rem" data-page-node-id="SWVhUN454k2FqabDYNfjeu">孩子可能需要专业帮助的信号</h3><p data-page-node-id="7b9hnJTWUPDSzkUt16Sx6c">下面这些情况，如果持续 2 周以上，建议找专业人员聊一聊。</p></div>
+        </div>
+        <ul data-page-node-id="QNhLqbEhmFkEmXf5L9On6e">
+          <li data-page-node-id="TXKIiotK9wHXFrfEasi5QM">情绪长期低落，或者一点小事就大发脾气，怎么哄都不行。</li>
+          <li data-page-node-id="Ev1nTX2kKsaM4CheBQ3fXF">突然不想上学、不想出门，躲着同学和朋友。</li>
+          <li data-page-node-id="znNrzS997w5elaYtPeVPDK">睡眠明显变化：睡不着、做噩梦、白天一直想睡。</li>
+          <li data-page-node-id="VlmC0xTSdlFVZ9ABqQ2EmP">吃不下或者吃得特别多，体重明显变化。</li>
+          <li data-page-node-id="a7ncCiVBZYgRrnaea4L7f2">经常说「我很没用」「没有我更好」，或者伤害自己。</li>
+          <li data-page-node-id="RtT1aU7tJA4AJoCbBkhQvt">反复说身体不舒服（头痛、肚子痛），但检查没发现明显问题。</li>
+        </ul>
+        <div class="note danger" data-page-node-id="AD8ATqd4M4qA7pDP3uv8Wm">
+          <b data-page-node-id="VLytGAfJzS1LtwiIEUqMqi">出现以下情况请立刻行动：</b>孩子说出想死、想伤害自己或别人的话，或者已经开始有伤害行为——
+          请马上拨打 <b data-page-node-id="5incwg9EExQdmSEadeIqLC">120</b>、<b data-page-node-id="599ldCga0NcBVhcvfa52LJ">110</b>，或直接前往就近医院急诊，同时联系 <b data-page-node-id="ma81dYfS5pdwFR73cvGcdU">12356</b> / <b data-page-node-id="ZdMmKvPg6ngOjGZOSBrZBJ">0756-8120120</b> 寻求专业支持。
+          <b data-page-node-id="tAsTMvyUXG3BHmR8mwTmcK">不要让孩子独处，把危险物品先收起来。</b>
+        </div>
+        <div class="btn-row" data-page-node-id="JMWu9NpotkYb04UarZ28Ws"><button class="btn btn-primary" data-go="help" data-page-node-id="1J8uFv9H6sIzCWQR1E2gYq">查看求助资源清单</button></div>
+      </div>
+
+      <div class="card" id="parE" data-page-node-id="IsjDazCeRGsE4dr2aWwTq0">
+        <div class="sec-head" data-page-node-id="knUNubIirvABcJvHZ5uUe7">
+          <span class="ico" style="background:var(--pink-soft)" aria-hidden="true" data-page-node-id="4kRuJGu8A3vcPfaumg0jCv">💛</span>
+          <div data-page-node-id="GCQlJJqmZEBOlpkv55mV94"><h3 style="font-size:1.1rem" data-page-node-id="gbomEGvctKD4cxLASQxNoB">也请照顾你自己</h3><p data-page-node-id="4Fl51ytwGZDjQlmMmeqlAU">父母稳住了，孩子才稳得住。</p></div>
+        </div>
+        <ul data-page-node-id="g7YpkylqpnJkUfwLNWoKkF">
+          <li data-page-node-id="fy5EoMKFYCim1YFdtRyf5K">情绪快爆炸时，先离开 3 分钟，去阳台深呼吸，不急着处理孩子。</li>
+          <li data-page-node-id="izBVeQt9VhYRNlcAQioRQg">找一个人说说话：伴侣、同乡、工友、老家的家人。</li>
+          <li data-page-node-id="3CD5sKJV0gmYYqiA59xJrz">你自己的情绪也可以打热线：<b data-page-node-id="y8PL4009I2vnIkZRqROCyz">12356</b> / <b data-page-node-id="b9DNcDMmREZOn4qyn0s05n">0756-8120120</b>，免费、保密。</li>
+          <li data-page-node-id="0MVgN2eymOyPpuGSEkwHwI">对孩子说「对不起」不丢人，反而是最好的示范。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 求助资源 ================= -->
+  <section class="view" id="view-help" aria-labelledby="helpTitle" data-page-node-id="VGOfFeAFqwZdxFblYJjFEM">
+    <div class="wrap" data-page-node-id="KG2ExDXD99LVk8kydTWwvq">
+      <div class="card soft flat" style="padding:16px 18px" data-page-node-id="t8lZQLVoapY7avvgDoTStK">
+        <button class="btn btn-ghost" data-go="home" style="padding:6px 10px" data-page-node-id="cVpba3Bjx6PfU4ENjiJfKN">← 返回首页</button>
+      </div>
+
+      <div class="sec-head" data-page-node-id="R9rTL1eDtk4KYqIWHC6Sl6">
+        <span class="ico" style="background:var(--danger-soft)" aria-hidden="true" data-page-node-id="vDUQbH3TjXao1CcnMw1TL5">📞</span>
+        <div data-page-node-id="hS2xvX5D06jsnLSavIXbRE">
+          <p class="eyebrow" data-page-node-id="o3dt5bkItH7k9FO2Umf1GZ">珠海本地 · 已核实</p>
+          <h2 id="helpTitle" data-page-node-id="peyXfHiipCzHRZFqdqE0FX">心理援助与转介资源清单</h2>
+          <p data-page-node-id="nD3mD5rZ4fPrypbSNlkK91">全部为公开的公益免费渠道。紧急情况请直接拨打 110 / 120。</p>
+        </div>
+      </div>
+
+      <div class="res urgent" data-page-node-id="0BpSKmNuGY72I1qI2FIuyg">
+        <h4 data-page-node-id="oOJpaRh5BMy5C3EmEFlMo4">紧急情况 <span class="pill gray" data-page-node-id="OAXTA9MWBskcnJJuICRhah">如果有危险，先做这一步</span></h4>
+        <div class="num" data-page-node-id="Sf9KSZv6oyMvjmaFKDLIeE">110 &nbsp;/&nbsp; 120</div>
+        <p data-page-node-id="QiBo6mWsf6o3UJmF5erbmj">有人正在伤害自己或他人、吞药、明显外伤、意识不清——先打 110 或 120，不要等待、不要自己处理。</p>
+        <a class="tel" href="tel:110" data-page-node-id="YO6AE3ejOsVHDa9vg6XzuW">📞 拨打 110（报警）</a>
+      </div>
+
+      <div class="res hot" data-page-node-id="IxLRTBHBvJr1cQ34dWN8rv">
+        <h4 data-page-node-id="1DMr81YyV6DhWlJXqDvTtg">全国统一心理援助热线 <span class="pill sun" data-page-node-id="oHUv3DBF2F2GQjybcWEwJD">24 小时 · 免费</span></h4>
+        <div class="num" data-page-node-id="dNQj9nfR31TOa9HAqfTj6T">12356</div>
+        <p data-page-node-id="SOHieWoRk6DFxZuatP7AQd">国家卫生健康委统一设置的心理援助热线，2025 年起各地心理援助热线均已接入，一个号码接通。提供心理健康教育、心理咨询、情绪疏导与危机干预。</p>
+        <a class="tel" href="tel:12356" data-page-node-id="gPPi2Kab9fCke0RsJRcEAE">📞 拨打 12356</a>
+      </div>
+
+      <div class="res" data-page-node-id="2DYCGrMCYn09388trKlmUc">
+        <h4 data-page-node-id="JAsm6qIutqOXsP2uyf3uiu">珠海市心理援助热线 <span class="pill" data-page-node-id="olM3G9VO8Lpwdxf7ozIvvX">24 小时 · 免费</span></h4>
+        <div class="num" data-page-node-id="OqRszLVbV0cHtUL3qMb2Dj">0756-8120120</div>
+        <p data-page-node-id="5ZVKRcrmCooaV5LwLi97J8">由珠海市第三人民医院（珠海市精神卫生中心）运营，设有未成年人援助专线，7 天 24 小时在线，提供危机干预、情绪疏导、心理健康宣教与个案绿色转介服务。</p>
+        <a class="tel" href="tel:07568120120" data-page-node-id="tUHPDnZ4hyIMvH5Ag5LB25">📞 拨打 0756-8120120</a>
+      </div>
+
+      <div class="res calm" data-page-node-id="J0Nla9sBgqZFghX0QsLyUS">
+        <h4 data-page-node-id="bOYZFxl3CEmFC3kG2AglBd">广东 12355 青少年综合服务热线 <span class="pill teal" data-page-node-id="YYe8v8fLtsVSWfrA4elHsN">24 小时 · 省内免区号</span></h4>
+        <div class="num" data-page-node-id="46ZPYWUK8Qd3L3Yy5Mlhp2">12355</div>
+        <p data-page-node-id="bSOeC4qYDpO72TXrjvd9ZI">共青团广东省委统一接听的青少年服务热线，按 1 号键转心理咨询，由专业心理咨询师接听；同时提供法律援助、困难救助等综合服务。</p>
+        <a class="tel" href="tel:12355" data-page-node-id="1cHbpUhUtaXBzjXlHXQkvR">📞 拨打 12355</a>
+      </div>
+
+      <div class="res calm" data-page-node-id="3YpErS27CKQ1d6ezubC2By">
+        <h4 data-page-node-id="Yt0BHigdDthQppTEix6BZK">妇女维权热线 <span class="pill teal" data-page-node-id="m8yoIMo4so8VSOGupfcBzM">辅助支持</span></h4>
+        <div class="num" data-page-node-id="HgdjZgPEyx6KqcLBfD7hmx">12338</div>
+        <p data-page-node-id="FCXrBAhAaa5lDB0UHt5Hgb">可协助链接专业心理专家与团队，为家庭与青少年提供情绪疏导、心理危机干预等服务，尤其适用于涉及家庭暴力、监护困难的情况。</p>
+        <a class="tel" href="tel:12338" data-page-node-id="hdbbAfxFajCBvAXbTyaQKW">📞 拨打 12338</a>
+      </div>
+
+      <div class="res" data-page-node-id="8G5qCk5GoFdEdRILvJQNy5">
+        <h4 data-page-node-id="rizbkYcrvWV43Z6weTkQBB">珠海市第三人民医院（市精神卫生中心）· 临床心理科</h4>
+        <div class="num" data-page-node-id="FYpqFWjbq4CLe4hKRZUvVo">0756-2390333</div>
+        <p data-page-node-id="bv9gB3dN6sXLl7NaI2MfCx">地址：广东省珠海市香洲区南屏镇和正路 166 号。提供儿童青少年心理评估与诊疗。
+        <b data-page-node-id="0Mx2rQOdZfyoeFiRkSNkEi">建议先通过「珠海市第三人民医院」微信公众号或「健康珠海」平台查询最新门诊时间并预约挂号。</b></p>
+      </div>
+
+      <div class="res" data-page-node-id="oxefkTDRtlDBAv0DQufQCO">
+        <h4 data-page-node-id="uFLpDcgFD3QW0rM0C2QBEI">珠海市社会心理服务云平台 <span class="pill gray" data-page-node-id="IZ1pSFonppXCRppWKmukQc">线上自助</span></h4>
+        <p data-page-node-id="6ZZAGw0DyekbTsOLdSkdmD">免费提供心理评估、远程咨询、心理宣教、心理训练等自助服务；可通过「健康珠海」微信公众号进入。</p>
+      </div>
+
+      <div class="res" data-page-node-id="GR6myFjJmIvqVGNN7HFx5B">
+        <h4 data-page-node-id="tUFB0XeATg8d5iG2FHAGKC">斗门区「粤心安」社会心理服务站（室）<span class="pill gray" data-page-node-id="2ENhMLr8wr1IPECSWY0ZsH">就近求助</span></h4>
+        <p data-page-node-id="KD1h2plZEXRb9BMf6U2dft">珠海市已按「粤心安」「五个一」标准建成社会心理服务站（室），实现镇（街）、村（居）全覆盖。
+        可以先到所在社区、村（居）委会询问本社区的心理服务站位置，通常步行或短途即可到达。</p>
+      </div>
+
+      <div class="card" style="margin-top:20px" data-page-node-id="GWGynYxW4tCxDjhliYupTW">
+        <div class="sec-head" data-page-node-id="iU6kVNvuAQvPS51UKMkWDg">
+          <span class="ico" style="background:var(--sun-soft)" aria-hidden="true" data-page-node-id="Y09rsjX2o6yYCeppXCaSHd">📝</span>
+          <div data-page-node-id="79gvIvIGR2a2JbIMX5QvhY"><h2 style="font-size:1.16rem" data-page-node-id="0N3HhdufwY4h7VGAYPX2Zl">危机转介提示文案（可直接复制）</h2><p data-page-node-id="sTEWR1GMaxBwiC54j4d3az">用于公众号推文、家长群转发、留言板顶部提示。</p></div>
+        </div>
+        <div class="note warn" id="crisisCopy" data-page-node-id="RAmTmoz6rjzEN9nLeoyZ2J">
+          <b data-page-node-id="74Cq8HQVao92OYcP5DaOPe">如果你或你身边的人正处在心理困境中：</b><br data-page-node-id="nrxMCrhStfTz2sMiuCBJRG">
+          你并不孤单，也这不是你的错。可以随时拨打免费公益热线，24 小时都有人接听：<br data-page-node-id="fbzZzKsPMaBqy11PCtuHPo">
+          · 全国心理援助热线 <b data-page-node-id="kMCzm1XrF5FCACKwCetCnV">12356</b><br data-page-node-id="6ik4xvWHODU40uzSXW5i9P">
+          · 珠海市心理援助热线 <b data-page-node-id="XTFTJvq2b36l7KH4RhQha1">0756-8120120</b><br data-page-node-id="El3UxlOMcXICSVNgASy3X0">
+          · 广东 12355 青少年综合服务热线 <b data-page-node-id="HCCnFElnGhEBRAz6skK6WC">12355</b>（按 1 号键转心理咨询）<br data-page-node-id="JWwPwyzZhokE931fQwYo9D">
+          如果出现伤害自己或他人的想法或行为，请立刻拨打 <b data-page-node-id="pVWXAEo1RRwvs979KnBzLA">110</b> 或 <b data-page-node-id="thqt9Bwxjyk3iMGBfJVCDC">120</b>，或前往就近医院急诊，并请身边的人陪伴你，不要独处。
+        </div>
+        <div class="btn-row" data-page-node-id="FbPoeO97FJv5ggrb7pihyS">
+          <button class="btn btn-primary" id="copyCrisis" data-page-node-id="2tcFIAEiwERZXiZffeT60e">复制这段文案</button>
+        </div>
+        <p class="small muted" id="copyOut" style="margin-top:10px" data-page-node-id="Xtz9gOuR1GOLOXiXgb6sdA"></p>
+      </div>
+
+      <div class="note" data-page-node-id="mXB8H5Yknx6izUVBAZYl6D">
+        <b data-page-node-id="2dMWlDqmFW6OsVCkHUGhcw">信息核对说明：</b>本页号码整理自政府与官方机构公开发布的信息。
+        热线的服务时间与联系方式可能调整，<b data-page-node-id="PZiZvn6NTKZnErGBA2YGC7">拨打前建议先通过官方渠道确认</b>。本页不提供诊断与咨询，也不代表任何机构立场。
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 我的小感悟 ================= -->
+  <section class="view" id="view-wall" aria-labelledby="wallTitle" data-page-node-id="uJmnhc4UwbNcdIEZ1z078O">
+    <div class="wrap" data-page-node-id="5y9G20uF8bFqvCpOwUFJBA">
+      <div class="card soft flat" style="padding:16px 18px" data-page-node-id="6n38j0DjWLSCKMBpqiwcsx">
+        <button class="btn btn-ghost" data-go="home" style="padding:6px 10px" data-page-node-id="gGWOvHe6ibHsXkigSciQpB">← 返回首页</button>
+      </div>
+
+      <div class="sec-head" data-page-node-id="DEEx8H4m58pE6DaH0MR2Ov">
+        <span class="ico" style="background:var(--pink-soft)" aria-hidden="true" data-page-node-id="H7H1EUHPpfVazWHOwdyNk4">💬</span>
+        <div data-page-node-id="xB3d7nyZnEjm2gy5U21cTU">
+          <p class="eyebrow" data-page-node-id="8AZ0ibfV1EROwgOCyVxs2h">原型模块 · 匿名留言</p>
+          <h2 id="wallTitle" data-page-node-id="zb9EVHjHmxTMh5MzFnrBA7">我的小感悟</h2>
+          <p data-page-node-id="SjuzFk4hNRsc0QWIF0Pszm">看完网页，如果心里有一点想说的话，可以写在这里。</p>
+        </div>
+      </div>
+
+      <div class="note warn" data-page-node-id="9Zv7hiHaCwZ6PyUlspPd9S">
+        <b data-page-node-id="GZ576ASqhHltIUfp0ilVIi">请先读这一条：</b>本板块是课程项目的<strong data-page-node-id="7OPnNOAJbwd6oy2nAG8nSN">原型演示</strong>，<strong data-page-node-id="ITkHPQsWUD216hCsDUzvLw">不会真实上线、不会上传、不会收集任何真实的儿童信息</strong>。
+        你写下的内容只保存在<strong data-page-node-id="raXSEhU6uulY28biiLvFZP">你自己这台设备</strong>上，点「清除记录」就会消失。
+        正式上线时，本站会配备人工审核与严格的隐私保护规则，并只在监护人与本人知情同意下使用。
+      </div>
+
+      <div class="card" style="margin-top:14px" data-page-node-id="R3XUdfB08kloOyyR7j1knT">
+        <div class="field" data-page-node-id="x63CVaQOQ3TBLgp5uj5aE3">
+          <label for="wallText" data-page-node-id="1qJ9X3HZEFttQuy7TwTUhF">我想说的话 <span class="muted small" data-page-node-id="M4TXLktQajz4MB2j4S1WSD">（最多 120 字，请勿填写真实姓名、学校、住址、电话）</span></label>
+          <textarea id="wallText" maxlength="120" placeholder="例如：原来生气不是坏事，我学会了先深呼吸再说话。"></textarea>
+        </div>
+        <div class="field" data-page-node-id="iWfAj7mEEejC4DqNwzU5Pp">
+          <label for="wallName" data-page-node-id="tevA5jDwePnGjNl1F9My7f">起一个昵称 <span class="muted small" data-page-node-id="oYlUOFPZebAqVIly0HR72F">（可选，例如「小星星」）</span></label>
+          <input id="wallName" type="text" maxlength="12" placeholder="小星星" data-page-node-id="s7uk4ukXeqy641MCGTSJnr">
+        </div>
+        <div class="note danger" data-page-node-id="PkticALU4SoqWypnl9bMLD">
+          <b data-page-node-id="7El2VpV8vGsMdtwQhAIt4j">如果你现在很难受，请不要只写在这里。</b>这里没有人能马上回复你——
+          请拨打 <b data-page-node-id="KwrPRDuswQnifAIZJb6vLo">12356</b> 或 <b data-page-node-id="D6xjmrkWdXEpsRvnPaBHAo">0756-8120120</b>，那里会有真人听你说。
+        </div>
+        <div class="btn-row" data-page-node-id="mTwhKMWuyChVGhVFmrVKb6">
+          <button class="btn btn-primary" id="wallSave" data-page-node-id="ESqwMJ0MACUqJulft9jjGj">写好了，贴到墙上</button>
+          <button class="btn" id="wallClear" data-page-node-id="9uQIqKKCxm0oFBuykknQBc">清除本机记录</button>
+        </div>
+        <p class="small muted" id="wallOut" style="margin-top:10px" data-page-node-id="CcdouQwsaR9J4dDa19yElg"></p>
+      </div>
+
+      <h3 class="h" data-page-node-id="HywcPGdIirJUGzWeRQwiBG">墙上现在的话</h3>
+      <p class="small muted" data-page-node-id="sbI52GfKIOpW3gWg6qgmKm">带「示例」标记的是小组预置的示范内容，其余是你自己写在本机的内容。</p>
+      <ul class="wall-list" id="wallList" data-page-node-id="GJ016iVLHuWT1ZgXmMSqKG"></ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot" data-page-node-id="uRXwUl0rwRX4rtQPweOVyF">
+  <div class="wrap" data-page-node-id="hR0Kc9mJ1plJtzVqfGpB8h">
+    <div class="foot-nav" data-page-node-id="xhn7BVbme5iBK9qscyRm5m">
+      <button data-go="home" data-page-node-id="iGNw7rGw6D6EPieqdsce4o">首页</button>
+      <button data-go="kids" data-page-node-id="50PmwVk9SUNHTAcU9lsHSd">儿童专区</button>
+      <button data-go="games" data-page-node-id="EKOy5zvfpC7VwE0kdd8sQm">小游戏</button>
+      <button data-go="parents" data-page-node-id="sLKFpin0oHBp7AU6TzC40D">家长专区</button>
+      <button data-go="help" data-page-node-id="TNEwqhUIoNKdG1HfCxoPOk">求助资源</button>
+      <button data-go="wall" data-page-node-id="9bSJOboDBVz6BrZ8WvFbed">我的小感悟</button>
+    </div>
+    <p data-page-node-id="zP50CpfdOw3pf6JCkpxDGm"><b data-page-node-id="qbI3ExcDrxJet2L0FLYOiP">心晴小站</b> · 斗门新青流动儿童心理安全科普网页原型 —— 服务领导力课程小组项目（7 人）</p>
+    <p data-page-node-id="nynME8NDqiFtsC6slbstXL">仅供科普，不替代专业帮助。紧急情况请拨打 110 / 120；心理援助热线 12356、0756-8120120（24 小时免费）。</p>
+  </div>
+</footer>
+
+<!-- 危机弹窗（入口在顶部功能栏的「🆘 求助」） -->
+<div class="modal" id="crisisModal" role="dialog" aria-modal="true" aria-labelledby="crisisTitle" data-page-node-id="fIITTPcgyGndTjEhwMjFyN">
+  <div class="modal-box" data-page-node-id="ehCPMyt2XMlY9pb4ltLDBi">
+    <div class="modal-head" data-page-node-id="qxasFyioPOi6g9GFtOzNXc">
+      <span class="ico" style="width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:1.3rem;background:var(--danger-soft)" aria-hidden="true" data-page-node-id="xbClhZPU0zwFDnenivVeW3">🆘</span>
+      <div data-page-node-id="JDWPqXfgJyhaXSs8wpBkZY">
+        <h3 id="crisisTitle" data-page-node-id="hm0Jd6yZqncUnJ3XtspovF">现在就可以打这些电话</h3>
+        <p class="small muted" style="margin:.2em 0 0" data-page-node-id="s2V4QetRAcfEoXLj0pgCxH">免费、保密，24 小时都有人接听。</p>
+      </div>
+      <button class="x" data-close="crisisModal" aria-label="关闭" data-page-node-id="aUTszm3735nTqpiTcK7vM3">✕</button>
+    </div>
+    <div class="res urgent" style="margin-bottom:10px" data-page-node-id="lN7XnNUpXVA9dHk2hsUCf5">
+      <h4 data-page-node-id="H0PfKEmTp8PYCUG9aWHGsE">有立即危险</h4>
+      <div class="num" data-page-node-id="xT9eHtfr6KNrFqrsjXOECC">110 / 120</div>
+      <p data-page-node-id="vz3zo5Jdlvjo5GWOXQ9hb2">请立刻拨打，并让身边的人陪着你，不要独处。</p>
+      <a class="tel" href="tel:110" data-page-node-id="SPH4TD3q7wbDtnWJYUh4X4">📞 110</a>
+    </div>
+    <div class="res hot" style="margin-bottom:10px" data-page-node-id="IY0VsPueALNlazvto4qOvb">
+      <h4 data-page-node-id="mHgqRZBgp7IcwCkSxRBHtY">心理援助热线（全国）</h4>
+      <div class="num" data-page-node-id="vIWHyKdncHL5elNedAXBjB">12356</div>
+      <a class="tel" href="tel:12356" data-page-node-id="26FeT43uABaaUo7bdWvuqQ">📞 拨打 12356</a>
+    </div>
+    <div class="res" style="margin-bottom:10px" data-page-node-id="TM1WgCVAJyA0mT2bukwlMV">
+      <h4 data-page-node-id="ekAKDFPCOXVJU5N9OzfGac">珠海市心理援助热线</h4>
+      <div class="num" data-page-node-id="FwTVLUi6r0PUVFJIHeNOSt">0756-8120120</div>
+      <a class="tel" href="tel:07568120120" data-page-node-id="VjooTyl6HJqUpOQV4BtxD6">📞 拨打 0756-8120120</a>
+    </div>
+    <div class="res calm" data-page-node-id="dbxJyO9J3IXSkwUxxkr3MZ">
+      <h4 data-page-node-id="TMi1REhqNeCJRbD5A6TH8i">青少年服务热线（广东）</h4>
+      <div class="num" data-page-node-id="n7wyrBzLJvcPdpJJkJPs4t">12355</div>
+      <a class="tel" href="tel:12355" data-page-node-id="JKxtVAwRwwRcGRDsAqSOX0">📞 拨打 12355</a>
+    </div>
+    <p class="small muted" style="margin-top:12px" data-page-node-id="yeOL4AZpZsfurpZFyPhgPX">你愿意打这个电话，已经很勇敢了。说出来，就有人陪你一起想办法。</p>
+    <div class="btn-row" data-page-node-id="65dV7HuRrY9xdpWwI1ymFe"><button class="btn btn-block" data-close="crisisModal" data-page-node-id="9RHBhsRKCfiZq6LPuLOBEU">我知道了</button></div>
+  </div>
+</div>
+
+<!-- 朗读声音选择弹窗 -->
+<div class="modal" id="voiceModal" role="dialog" aria-modal="true" aria-labelledby="voiceTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <span class="ico" style="width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:1.3rem;background:var(--teal-soft)" aria-hidden="true">🔉</span>
+      <div>
+        <h3 id="voiceTitle">选一个朗读的声音</h3>
+        <p class="small muted" style="margin:.2em 0 0">点一下就能试听，选好后自动记住。</p>
+      </div>
+      <button class="x" data-close="voiceModal" aria-label="关闭">✕</button>
+    </div>
+    <div class="voice-list" id="voiceList"></div>
+    <p class="tiny muted" style="margin:12px 0 0">声音列表来自你当前使用的手机或电脑，所以不同设备能选的声音会不一样。列表里的女生音色已经排在最前面。</p>
+  </div>
+</div>
+
+<!-- 分享海报弹窗 -->
+<div class="modal" id="posterModal" role="dialog" aria-modal="true" aria-labelledby="posterTitle" data-page-node-id="OHgYPiO0QCZ6eYLLZoGzdq">
+  <div class="modal-box" data-page-node-id="bQmTzbVMqJ2t2XkJYTpTxd">
+    <div class="modal-head" data-page-node-id="DuBnVt5uwS5dVyqj7NFfkb">
+      <span class="ico" style="width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:1.3rem;background:var(--brand-soft)" aria-hidden="true" data-page-node-id="arhQpJEpIEGpfOvwUWFj7g">📤</span>
+      <div data-page-node-id="GqagowAZKA96zkKIlQ9gqw">
+        <h3 id="posterTitle" data-page-node-id="GoGfyAf3bf72szHndIiC8I">分享海报</h3>
+        <p class="small muted" style="margin:.2em 0 0" data-page-node-id="1f1ARhdvWSPRYKR3F0zEiF">长按图片保存，或点下面的按钮下载后转发到家长群。</p>
+      </div>
+      <button class="x" data-close="posterModal" aria-label="关闭" data-page-node-id="3CHEPIM0LG4kE7v8dAF6xM">✕</button>
+    </div>
+    <canvas id="posterCanvas" width="750" height="1000" aria-label="分享海报预览" data-page-node-id="MyUjFIpMedTXqlfQ2ii3EV"></canvas>
+    <div class="btn-row" data-page-node-id="dEzDpXbV36ykv1ECx29M6Q">
+      <button class="btn btn-primary" id="posterDownload" data-page-node-id="GpO3pc7zfINeVOEW14QXnj">下载海报图片</button>
+      <button class="btn" id="posterCopy" data-page-node-id="KwnstDSWjcGeqtgZaoyNQy">复制网页链接</button>
+    </div>
+    <p class="small muted" id="posterOut" style="margin-top:10px" data-page-node-id="dGo1akZVcEozW1zit0bGIh"></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ================= 存储（本地，失败也不影响使用） ================= */
+  var store = {
+    get: function(k, d){ try{ var v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
+    set: function(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } },
+    del: function(k){ try{ localStorage.removeItem(k); }catch(e){} }
+  };
+
+  /* ================= 路由 ================= */
+  var VIEWS = ["home","kids","games","parents","help","wall"];
+  var TITLES = {
+    home:"心晴小站 · 斗门新青儿童心理安全科普（网页原型）",
+    kids:"儿童专区 · 心晴小站",
+    games:"趣味小游戏 · 心晴小站",
+    parents:"家长专区 · 心晴小站",
+    help:"求助资源 · 心晴小站",
+    wall:"我的小感悟 · 心晴小站"
+  };
+
+  function go(id, noHash){
+    if(VIEWS.indexOf(id) < 0) id = "home";
+    VIEWS.forEach(function(v){
+      var el = document.getElementById("view-" + v);
+      if(el) el.classList.toggle("active", v === id);
+    });
+    document.title = TITLES[id] || TITLES.home;
+    /* 顶部功能栏：同步高亮当前板块，并把它滚到中间 */
+    var tabs = document.querySelectorAll("#tabbar button");
+    var on = null;
+    Array.prototype.forEach.call(tabs, function(b){
+      var isOn = b.getAttribute("data-go") === id;
+      b.classList.toggle("is-on", isOn);
+      b.setAttribute("aria-current", isOn ? "page" : "false");
+      if(isOn) on = b;
+    });
+    var bar = document.getElementById("tabbar");
+    if(bar && on){
+      var want = on.offsetLeft - (bar.clientWidth - on.offsetWidth) / 2;
+      bar.scrollLeft = want < 0 ? 0 : want;
+    }
+    if(typeof stopReading === "function") stopReading();   /* 切换板块时先停下朗读 */
+    if(!noHash){
+      try{ history.replaceState(null, "", "#" + id); }catch(e){ location.hash = id; }
+    }
+    window.scrollTo({top:0, behavior:"auto"});
+  }
+
+  document.addEventListener("click", function(ev){
+    var t = ev.target.closest("[data-go]");
+    if(t){
+      ev.preventDefault();
+      go(t.getAttribute("data-go"));
+      return;
+    }
+    var c = ev.target.closest("[data-close]");
+    if(c){ closeModal(c.getAttribute("data-close")); }
+  });
+
+  window.addEventListener("hashchange", function(){
+    go((location.hash || "#home").slice(1), true);
+  });
+
+  /* ================= 主题 / 大字 ================= */
+  var root = document.documentElement;
+  var btnTheme = document.getElementById("btnTheme");
+  var themeIc = document.getElementById("themeIc");
+
+  function applyTheme(t){
+    root.setAttribute("data-theme", t);
+    if(themeIc) themeIc.textContent = (t === "dark") ? "☀️" : "🌙";
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if(meta) meta.setAttribute("content", t === "dark" ? "#141218" : "#FF7A59");
+    store.set("xq_theme", t);
+  }
+  applyTheme(store.get("xq_theme", "light"));
+  if(btnTheme){
+    btnTheme.addEventListener("click", function(){
+      applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+    });
+  }
+
+  var btnFont = document.getElementById("btnFont");
+  function applyFont(on){
+    root.classList.toggle("large-font", !!on);
+    if(btnFont) btnFont.setAttribute("aria-pressed", on ? "true" : "false");
+    store.set("xq_font", !!on);
+  }
+  applyFont(store.get("xq_font", false));
+  if(btnFont){
+    btnFont.addEventListener("click", function(){
+      applyFont(!root.classList.contains("large-font"));
+    });
+  }
+
+  /* ================= 模态 ================= */
+  function openModal(id){
+    var m = document.getElementById(id);
+    if(!m) return;
+    m.classList.add("open");
+    var f = m.querySelector(".x");
+    if(f) f.focus();
+  }
+  function closeModal(id){
+    var m = document.getElementById(id);
+    if(m) m.classList.remove("open");
+  }
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape"){
+      document.querySelectorAll(".modal.open").forEach(function(m){ m.classList.remove("open"); });
+    }
+  });
+  document.querySelectorAll(".modal").forEach(function(m){
+    m.addEventListener("click", function(e){ if(e.target === m) m.classList.remove("open"); });
+  });
+
+  /* 顶部功能栏：求助（原悬浮按钮已并入功能栏） */
+  var crisisTop = document.getElementById("btnCrisisTop");
+  if(crisisTop) crisisTop.addEventListener("click", function(){ openModal("crisisModal"); });
+
+  /* ================= 逐段朗读（想听哪段就点哪段） ================= */
+  var synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+  var btnRead = document.getElementById("btnRead");
+  var readIc = document.getElementById("readIc");
+  var readLbl = document.getElementById("readLbl");
+  var rdOn = store.get("xq_read", true);
+  var rdCur = null;
+
+  var RD_SEL = ".view h1, .view h2, .view h3, .view h4, .view p, .view li, .view .res, .view .note";
+  var RD_UP = "button, a, label, canvas, select, input, textarea, .entry, .game, .emo, .tool, .tabbar";
+
+  function blockText(el){
+    var c = el.cloneNode(true);
+    var junk = c.querySelectorAll(".rd-ic");
+    for(var i = 0; i < junk.length; i++) junk[i].parentNode.removeChild(junk[i]);
+    return (c.textContent || "")
+      .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{2190}-\u{21FF}]/gu, "")
+      .replace(/\s+/g, " ").trim();
+  }
+
+  /* ---- 声音挑选：默认自动选「自然的温柔女声」，用户也可以自己换 ---- */
+  var RD_RATE = 0.9;    /* 略放慢，听起来更柔和不赶 */
+  var RD_PITCH = 1.02;
+  var chosenUri = store.get("xq_voice", "");
+  var voiceCache = null;
+
+  /* 越靠前越优先：各平台最自然的女声 */
+  var VOICE_PREF = [
+    /xiaoxiao|晓晓/i, /xiaoyi|晓伊/i, /xiaohan|晓涵/i, /xiaomeng|晓梦/i,
+    /google.*(普通话|mandarin|中文)/i, /siri/i,
+    /ting-?ting|婷婷/i, /mei-?jia|美佳|美嘉/i, /sin-?ji|善怡/i
+  ];
+  /* 明确的女声 / 男声特征，用于排序与排除 */
+  var V_FEMALE = /xiaoxiao|晓晓|xiaoyi|晓伊|xiaohan|晓涵|xiaomeng|晓梦|xiaoxuan|晓萱|xiaoyan|晓颜|xiaoyou|晓悠|ting-?ting|婷婷|mei-?jia|美佳|美嘉|sin-?ji|善怡|huihui|慧慧|yaoyao|瑶瑶|siri|female|女/i;
+  var V_MALE = /yunxi|云希|yunjian|云健|yunyang|云扬|yunye|云野|kangkang|康康|li-?mu|力牧|binbin|彬彬|\bmale\b|daniel|aaron/i;
+  /* macOS 的恶搞音色（Eddy / Grandma 之类）也被标成中文，念中文非常怪，压到最底 */
+  var V_ODD = /eddy|flo|grandma|grandpa|reed|rocko|sandy|shelley|junior|ralph|kathy|princess|bruce|agnes|albert|bad news|bahh|bells|boing|bubbles|cellos|wobble|jester|organ|superstar|trinoids|whisper|zarvox|novelty/i;
+
+  function zhVoices(){
+    if(!synth || !synth.getVoices) return [];
+    var vs = synth.getVoices() || [], out = [];
+    for(var i = 0; i < vs.length; i++){
+      var v = vs[i];
+      if(/^zh/i.test(v.lang) || /Chinese|中文|普通话|國語|国语/i.test(v.name)) out.push(v);
+    }
+    return out;
+  }
+
+  function voiceKey(v){ return v.voiceURI || v.name || ""; }
+
+  function scoreVoice(v){
+    var n = (v.name || "") + " " + (v.lang || ""), s = 0;
+    if(/natural|neural|enhanced|premium|online/i.test(n)) s += 30;   /* 神经/增强音质明显更自然 */
+    if(v.localService === false) s += 12;                            /* 云端语音通常更像真人 */
+    if(/^zh[-_]?(CN|Hans)/i.test(v.lang)) s += 18;                   /* 普通话优先 */
+    else if(/^zh/i.test(v.lang)) s += 6;
+    for(var i = 0; i < VOICE_PREF.length; i++){
+      if(VOICE_PREF[i].test(v.name)){ s += 70 - i * 4; break; }
+    }
+    if(V_FEMALE.test(v.name)) s += 8;
+    if(V_ODD.test(v.name)) s -= 300;
+    if(V_MALE.test(v.name)) s -= 400;
+    return s;
+  }
+
+  /* 只在本机已装好的语音里挑，用于云端语音失败时兜底 */
+  function localVoice(){
+    var vs = zhVoices().filter(function(v){ return v.localService !== false && !V_MALE.test(v.name); });
+    if(!vs.length) return null;
+    var best = vs[0];
+    for(var i = 1; i < vs.length; i++){
+      if(scoreVoice(vs[i]) > scoreVoice(best)) best = vs[i];
+    }
+    return best;
+  }
+
+  function pickVoice(){
+    if(voiceCache) return voiceCache;
+    var vs = zhVoices();
+    if(!vs.length) return null;
+    if(chosenUri){
+      for(var i = 0; i < vs.length; i++){
+        if(voiceKey(vs[i]) === chosenUri){ voiceCache = vs[i]; return voiceCache; }
+      }
+    }
+    var pool = vs.filter(function(v){ return !V_MALE.test(v.name) && !V_ODD.test(v.name); });
+    if(!pool.length) pool = vs;
+    var best = pool[0];
+    for(var j = 1; j < pool.length; j++){
+      if(scoreVoice(pool[j]) > scoreVoice(best)) best = pool[j];
+    }
+    voiceCache = best;
+    return best;
+  }
+
+  function voiceLabel(v){
+    if(!v) return "系统默认";
+    var n = (v.name || "").replace(/^(Microsoft|Google)\s*/i, "").replace(/\s*[-–]\s*Chinese.*$/i, "").replace(/\s*\(.*?\)\s*/g, " ").replace(/\s+/g, " ").trim();
+    if(!n) n = v.lang || "默认声音";
+    if(/xiaoxiao/i.test(n)) n = "晓晓";
+    if(/xiaoyi/i.test(n)) n = "晓伊";
+    if(/ting-?ting/i.test(n)) n = "婷婷";
+    if(/mei-?jia/i.test(n)) n = "美嘉";
+    if(/sin-?ji/i.test(n)) n = "善怡";
+    /* 平台自带的本地化名字太长，收短一点，免得按钮被撑开 */
+    n = n.replace(/普通话[（(]中国大陆[)）]/g, "普通话")
+         .replace(/國語[（(]臺灣[)）]|国语[（(]台湾[)）]/g, "台湾国语")
+         .replace(/[粵粤]語[（(]香港[)）]/g, "粤语")
+         .trim();
+    if(V_FEMALE.test(v.name)) return n + "（女声）";
+    if(V_MALE.test(v.name)) return n + "（男声）";
+    return n;
+  }
+
+  function shortVoiceName(v){
+    if(!v) return "系统默认";
+    return voiceLabel(v).replace("（女声）", "").replace("（男声）", "");
+  }
+
+  function setVoiceLabel(){
+    var el = document.getElementById("voiceName");
+    if(el) el.textContent = shortVoiceName(pickVoice());
+  }
+
+  /* 试听：选完立刻用新声音说一句 */
+  function previewVoice(v){
+    if(!synth) return;
+    try{ synth.cancel(); }catch(e){}
+    stopReading();
+    function say(voice, retried){
+      var u = new SpeechSynthesisUtterance("你好，我是心晴小站。想听哪一段，点一下它就可以了。");
+      u.lang = "zh-CN";
+      u.rate = RD_RATE;
+      u.pitch = RD_PITCH;
+      if(voice) u.voice = voice;
+      u.onerror = function(){
+        if(retried) return;
+        /* 用户自己选的音色不擅自替换；只有云端语音失败才退到本机语音 */
+        if(!voice || voice.localService !== false) return;
+        var lv = localVoice();
+        if(lv && voiceKey(lv) !== voiceKey(voice)) say(lv, true);
+      };
+      try{ synth.speak(u); }catch(e){}
+    }
+    say(v, false);
+  }
+
+  function renderVoices(){
+    var box = document.getElementById("voiceList");
+    if(!box) return;
+    var vs = zhVoices();
+    box.innerHTML = "";
+    if(!vs.length){
+      var p = document.createElement("p");
+      p.className = "tiny muted";
+      p.style.margin = "0";
+      p.textContent = "这台设备暂时没有检测到中文语音包，网页会用系统默认声音朗读。";
+      box.appendChild(p);
+      return;
+    }
+    vs.sort(function(a, b){ return scoreVoice(b) - scoreVoice(a); });
+    /* 系统里的恶搞音色念中文非常怪，直接不列出来 */
+    var shown = vs.filter(function(v){ return !V_ODD.test(v.name); });
+    if(!shown.length) shown = vs;
+    shown.forEach(function(v){
+      var cur = pickVoice();
+      var on = !!(cur && voiceKey(v) === voiceKey(cur));
+      var b = document.createElement("button");
+      b.type = "button";
+      if(on) b.className = "is-on";
+      var i1 = document.createElement("span"), i2 = document.createElement("span"), i3 = document.createElement("small");
+      i1.setAttribute("aria-hidden", "true");
+      i1.textContent = on ? "✅" : "🔉";
+      i2.textContent = voiceLabel(v);
+      i3.textContent = v.lang || "";
+      b.appendChild(i1); b.appendChild(i2); b.appendChild(i3);
+      b.addEventListener("click", function(){
+        chosenUri = voiceKey(v);
+        store.set("xq_voice", chosenUri);
+        voiceCache = null;
+        setVoiceLabel();
+        renderVoices();
+        previewVoice(v);
+      });
+      box.appendChild(b);
+    });
+  }
+
+  if(synth && synth.addEventListener){
+    synth.addEventListener("voiceschanged", function(){
+      voiceCache = null;
+      setVoiceLabel();
+      renderVoices();
+    });
+  }
+
+  function setBtnState(){
+    if(!btnRead) return;
+    if(rdCur){ if(readLbl) readLbl.textContent = "停止"; return; }
+    if(readLbl) readLbl.textContent = "朗读";
+    if(readIc) readIc.textContent = rdOn ? "🔊" : "🔇";
+  }
+
+  function stopReading(){
+    if(rdCur){ rdCur.classList.remove("reading"); rdCur = null; }
+    if(synth){ try{ synth.cancel(); }catch(e){} }
+    setBtnState();
+  }
+
+  /* 用一个指定声音念一段文字；只有「云端语音加载失败」才换本机语音重试一次 */
+  function speakWith(el, txt, voice, isRetry){
+    var u = new SpeechSynthesisUtterance(txt);
+    u.lang = "zh-CN";
+    u.rate = RD_RATE;
+    u.pitch = RD_PITCH;
+    if(voice) u.voice = voice;
+    u.onend = function(){ if(rdCur === el) stopReading(); };
+    u.onerror = function(){
+      if(rdCur !== el) return;
+      if(!isRetry && voice && voice.localService === false){
+        var lv = localVoice();
+        if(lv && voiceKey(lv) !== voiceKey(voice)){ speakWith(el, txt, lv, true); return; }
+      }
+      stopReading();
+    };
+    el._rdU = u;
+    try{ synth.speak(u); }catch(e){ stopReading(); }
+  }
+
+  function readBlock(el){
+    if(!synth){ alert("这个浏览器暂时不支持朗读，可以试试开启「大字」模式阅读。"); return; }
+    if(rdCur === el){ stopReading(); return; }
+    var txt = blockText(el);
+    if(!txt) return;
+    try{ synth.cancel(); }catch(e){}
+    if(rdCur) rdCur.classList.remove("reading");
+    rdCur = el;
+    el.classList.add("reading");
+    setBtnState();
+    speakWith(el, txt.slice(0, 1500), pickVoice(), false);
+  }
+
+  function applyRead(on){
+    rdOn = !!on;
+    document.documentElement.classList.toggle("no-read", !rdOn);
+    if(btnRead) btnRead.setAttribute("aria-pressed", rdOn ? "true" : "false");
+    store.set("xq_read", rdOn);
+    if(!rdOn) stopReading();
+    setBtnState();
+  }
+
+  /* 给每个可读文字块挂上小喇叭，并把整段做成可点区域 */
+  function buildReadable(){
+    if(!synth) return;
+    var cands = document.querySelectorAll(RD_SEL);
+    var list = [];
+    Array.prototype.forEach.call(cands, function(el){
+      if(el.classList.contains("eyebrow")) return;
+      if(el.hasAttribute("data-noread")) return;
+      if(el.closest(RD_UP)) return;
+      if((el.textContent || "").replace(/\s+/g, "").length < 5) return;
+      list.push(el);
+    });
+    /* 外层已经是一整段时，里面的小段不再单独加按钮 */
+    var keep = list.filter(function(el){
+      for(var i = 0; i < list.length; i++){
+        if(list[i] !== el && list[i].contains(el)) return false;
+      }
+      return true;
+    });
+    keep.forEach(function(el){
+      el.classList.add("rd");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "rd-ic";
+      b.textContent = "🔊";
+      b.setAttribute("aria-label", "朗读这一段");
+      b.title = "朗读这一段";
+      el.appendChild(b);
+    });
+  }
+
+  document.addEventListener("click", function(ev){
+    if(!rdOn || !synth) return;
+    var hit = ev.target.closest(".rd");
+    if(!hit) return;
+    if(ev.target.closest("a, button:not(.rd-ic)")) return;
+    var sel = window.getSelection ? window.getSelection().toString() : "";
+    if(sel && sel.length > 0) return;
+    readBlock(hit);
+  });
+
+  if(!synth){
+    if(btnRead) btnRead.style.display = "none";
+  }else{
+    if(synth.getVoices) synth.getVoices();
+    if(btnRead){
+      btnRead.addEventListener("click", function(){
+        if(rdCur){ stopReading(); return; }
+        applyRead(!rdOn);
+      });
+    }
+    applyRead(rdOn);
+    buildReadable();
+    setVoiceLabel();
+    renderVoices();
+  }
+
+  /* 朗读提示条 + 声音入口：收起后只留一个换声音的小按钮 */
+  var hintWrap = document.getElementById("readHintWrap");
+  if(hintWrap && store.get("xq_hint", true) === false) hintWrap.classList.add("hint-min");
+  var hintClose = document.getElementById("readHintClose");
+  if(hintClose){
+    hintClose.addEventListener("click", function(){
+      hintWrap.classList.add("hint-min");
+      store.set("xq_hint", false);
+    });
+  }
+  var btnVoice = document.getElementById("btnVoice");
+  if(btnVoice){
+    btnVoice.addEventListener("click", function(){ renderVoices(); openModal("voiceModal"); });
+  }
+
+  /* ================= 复制 ================= */
+  function copyText(text, outEl, okMsg){
+    function done(ok){
+      if(outEl) outEl.textContent = ok ? okMsg : "复制失败，请长按选中后手动复制。";
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
+    }else{
+      try{
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        done(true);
+      }catch(e){ done(false); }
+    }
+  }
+
+  var copyCrisisBtn = document.getElementById("copyCrisis");
+  if(copyCrisisBtn){
+    copyCrisisBtn.addEventListener("click", function(){
+      var src = document.getElementById("crisisCopy");
+      copyText((src ? src.innerText : "").trim(), document.getElementById("copyOut"), "已复制，可以直接粘贴到群里或公众号推文里。");
+    });
+  }
+
+  /* ================= 小练习：信任的大人 ================= */
+  var sT = document.getElementById("saveTrust");
+  var shT = document.getElementById("showTrust");
+  var tOut = document.getElementById("trustOut");
+  if(sT){
+    var saved = store.get("xq_trust", null);
+    if(saved && saved.adult){
+      document.getElementById("trustAdult").value = saved.adult || "";
+      document.getElementById("trustPhone").value = saved.phone || "";
+    }
+    sT.addEventListener("click", function(){
+      var a = document.getElementById("trustAdult").value.trim();
+      var p = document.getElementById("trustPhone").value.trim();
+      if(!a){ tOut.textContent = "先写上大人的称呼吧。"; return; }
+      tOut.textContent = store.set("xq_trust", {adult:a, phone:p})
+        ? "已经保存在你自己的手机里了（不会上传）。需要的时候，记得真的去找他/她说。"
+        : "这台设备不支持本地保存，可以把名字记在纸上。";
+    });
+    shT.addEventListener("click", function(){
+      var d = store.get("xq_trust", null);
+      if(d && d.adult){
+        tOut.textContent = "我信任的大人：" + d.adult + (d.phone ? "，电话：" + d.phone : "") + "。";
+      }else{
+        tOut.textContent = "还没有保存内容。";
+      }
+    });
+  }
+
+  /* ================= 游戏一：情绪猜猜看 ================= */
+  var G1 = [
+    {q:"小明的玩具被同学撞坏了。他握紧拳头，脸有点发烫，很想大声叫。他现在可能是什么心情？",
+     o:["生气","开心","困了","饿了"], a:0,
+     why:"生气的时候，身体会变热、拳头会握紧。生气是正常的，我们可以用「说出来」代替「动手」。"},
+    {q:"新学期第一天，小美要走进一个陌生的教室。她的心跳得很快，手心还出汗。她可能是什么心情？",
+     o:["害怕","骄傲","无聊","生气"], a:0,
+     why:"害怕的时候心跳会变快，这是身体在保护我们。可以慢慢深呼吸，然后找老师或者同学待在一起。"},
+    {q:"小杰最好的朋友转学走了。他一个人坐在操场边，眼睛湿湿的，不想说话。他可能是什么心情？",
+     o:["难过","开心","生气","惊讶"], a:0,
+     why:"难过的时候想哭是很正常的。可以告诉信任的大人，也可以把心情画下来、写下来。"},
+    {q:"小婷放学回家，发现桌子上有一个没见过的礼物盒。她睁大眼睛、张大了嘴巴。她可能是什么心情？",
+     o:["惊讶","难过","害怕","生气"], a:0,
+     why:"惊讶一般只持续一小会儿，它在提醒我们「有新的事情发生了」。"},
+    {q:"老师在班上表扬了小浩，还说要把他的作业贴到墙上。小浩低下头笑了，脸有点热。他可能是什么心情？",
+     o:["开心 / 自豪","害怕","生气","难过"], a:0,
+     why:"被看见、被肯定的时候，我们会觉得开心和自豪。这种感觉可以记在心里，下次难受时想回来。"},
+    {q:"小雨要上台背课文，同学们都看着她。她的声音越来越小，很想躲到别人后面。她可能是什么心情？",
+     o:["害羞","生气","开心","惊讶"], a:0,
+     why:"害羞的时候会想躲起来。可以看着一个熟悉的人，深呼吸，慢慢说就好——没有人要求你完美。"}
+  ];
+
+  function shuffleOptions(item){
+    var arr = item.o.map(function(txt, i){ return {txt:txt, ok:(i === item.a)}; });
+    for(var i = arr.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  function makeQuiz(cfg){
+    var stage = document.getElementById(cfg.stage);
+    var fb = document.getElementById(cfg.fb);
+    var res = document.getElementById(cfg.res);
+    var btns = document.getElementById(cfg.btns);
+    var stepEl = document.getElementById(cfg.step);
+    var fillEl = document.getElementById(cfg.fill);
+    var scoreEl = document.getElementById(cfg.score);
+    var idx = 0, score = 0, done = false;
+
+    function render(){
+      done = false;
+      fb.className = "fb";
+      res.className = "fb";
+      if(idx >= cfg.data.length){ finish(); return; }
+      var item = cfg.data[idx];
+      stepEl.textContent = "第 " + (idx + 1) + " / " + cfg.data.length + " 题";
+      fillEl.style.width = Math.round(idx / cfg.data.length * 100) + "%";
+      scoreEl.textContent = "⭐ " + score;
+      btns.innerHTML = "";
+
+      var q = document.createElement("p");
+      q.className = "qtext";
+      q.textContent = item.q;
+      stage.innerHTML = "";
+      stage.appendChild(q);
+
+      var wrap = document.createElement("div");
+      wrap.className = "opts";
+      var opts = cfg.isTrueFalse
+        ? [{txt:"✅ 对", ok:item.a}, {txt:"❌ 错", ok:!item.a}]
+        : shuffleOptions(item);
+
+      opts.forEach(function(op){
+        var b = document.createElement("button");
+        b.className = "opt";
+        b.type = "button";
+        b.textContent = op.txt;
+        b.setAttribute("data-ok", op.ok ? "1" : "0");
+        b.addEventListener("click", function(){
+          if(done) return;
+          done = true;
+          Array.prototype.forEach.call(wrap.children, function(c){ c.disabled = true; });
+          if(op.ok){
+            b.classList.add("right");
+            score++;
+            scoreEl.textContent = "⭐ " + score;
+            fb.className = "fb show ok";
+            fb.innerHTML = "<b>答对啦！</b>" + item.why;
+          }else{
+            b.classList.add("wrong");
+            Array.prototype.forEach.call(wrap.children, function(c){
+              if(c.getAttribute("data-ok") === "1") c.classList.add("right");
+            });
+            fb.className = "fb show no";
+            fb.innerHTML = "<b>再想一想～ 正确答案是「" + (cfg.isTrueFalse ? (item.a ? "对" : "错") : item.o[item.a]) + "」</b>" + item.why;
+          }
+          var nb = document.createElement("button");
+          nb.className = "btn btn-primary";
+          nb.type = "button";
+          nb.textContent = (idx === cfg.data.length - 1) ? "看看我的星星 →" : "下一题 →";
+          nb.addEventListener("click", function(){ idx++; render(); });
+          btns.innerHTML = "";
+          btns.appendChild(nb);
+          nb.focus();
+        });
+        wrap.appendChild(b);
+      });
+      stage.appendChild(wrap);
+    }
+
+    function finish(){
+      stepEl.textContent = "全部完成";
+      fillEl.style.width = "100%";
+      stage.innerHTML = '<div class="gresult"><div class="score">' + score + " / " + cfg.data.length +
+        '</div><p>' + cfg.done(score) + "</p></div>";
+      fb.className = "fb";
+      btns.innerHTML = "";
+      var re = document.createElement("button");
+      re.className = "btn";
+      re.type = "button";
+      re.textContent = "再玩一次";
+      re.addEventListener("click", function(){ idx = 0; score = 0; scoreEl.textContent = "⭐ 0"; render(); });
+      var nx = document.createElement("button");
+      nx.className = "btn btn-primary";
+      nx.type = "button";
+      nx.textContent = cfg.nextLabel;
+      nx.addEventListener("click", function(){ go(cfg.nextView); });
+      btns.appendChild(re);
+      btns.appendChild(nx);
+    }
+
+    render();
+  }
+
+  makeQuiz({
+    data:G1, stage:"g1stage", fb:"g1fb", res:"g1res", btns:"g1btns",
+    step:"g1step", fill:"g1fill", score:"g1score", nextView:"kids", nextLabel:"去学「三步求助」→",
+    done:function(s){
+      if(s >= 6) return "全部答对！你已经很会看懂别人的心情了。记住：情绪没有对错，说出来就轻一点。";
+      if(s >= 4) return "很不错！再玩一次，你会发现更多情绪的小线索。";
+      return "没关系，情绪本来就不容易猜。再看一遍「认识我的情绪」，你会越来越准。";
+    }
+  });
+
+  /* ================= 游戏二：安全小卫士 ================= */
+  var G2 = [
+    {q:"背心和短裤盖住的地方是隐私部位，不能随便给别人看或者碰。", a:true,
+     why:"对。除了洗澡，或者生病时由家人在场陪同的医疗检查，其他任何时候你都可以说「不可以」。"},
+    {q:"如果有大人说「这是我们俩的小秘密，不要告诉爸爸妈妈」，我们应该帮他保守这个秘密。", a:false,
+     why:"错。任何让你觉得害怕或难受的「秘密」，都可以告诉信任的大人。真正关心你的人，不会要求你保密。"},
+    {q:"遇到让你不舒服的接触，可以先大声说「不要」，然后尽快离开，再去告诉信任的大人。", a:true,
+     why:"对。记住三步：大声说不要 → 马上离开 → 告诉大人。如果第一个人没帮你，就继续说，一直说到有人帮你为止。"},
+    {q:"只要对方是认识的叔叔阿姨或者老师，就一定安全，他们做什么都可以。", a:false,
+     why:"错。会伤害孩子的人，往往就是认识的人。所以「认识」不等于「安全」，让你不舒服就要拒绝。"},
+    {q:"如果在网上有人要你发照片，或者约你单独见面，要先告诉家长。", a:true,
+     why:"对。无论是网上不认识的人，还是认识的人提出这种要求，都要先告诉家长或老师，不要一个人去见面。"},
+    {q:"如果第一次告诉大人，他说「这没什么」，那就说明真的没事，不用再说了。", a:false,
+     why:"错。大人有时候会听不懂，或者当时没时间。你要继续说，换一个大人说，一直说到有人认真帮你为止。"}
+  ];
+
+  makeQuiz({
+    data:G2, isTrueFalse:true, stage:"g2stage", fb:"g2fb", res:"g2res", btns:"g2btns",
+    step:"g2step", fill:"g2fill", score:"g2score", nextView:"help", nextLabel:"去看求助资源 →",
+    done:function(s){
+      if(s >= 6) return "全对！这些事你记得很清楚。请也讲给你最好的朋友听。";
+      if(s >= 4) return "做得不错！把没答对的那几句再读一遍，会更安全。";
+      return "没关系，这些知识很重要。回到儿童专区再看一遍「我的身体，我做主」。";
+    }
+  });
+
+  /* ================= 游戏三：心情呼吸操 ================= */
+  (function(){
+    var ball = document.getElementById("breathBall");
+    var tMain = document.getElementById("breathText");
+    var tSub = document.getElementById("breathSub");
+    var meta = document.getElementById("breathMeta");
+    var bStart = document.getElementById("breathStart");
+    var bStop = document.getElementById("breathStop");
+    if(!ball || !bStart) return;
+
+    var TOTAL = 6, timer = null, running = false;
+
+    function reset(){
+      clearTimeout(timer);
+      running = false;
+      ball.style.transitionDuration = "600ms";
+      ball.style.transform = "scale(1)";
+      ball.classList.remove("out");
+      tMain.textContent = "准备好了吗？";
+      tSub.textContent = "点下面的按钮开始";
+      meta.textContent = "建议做 6 次，大约 1 分钟";
+      bStart.disabled = false;
+      bStop.disabled = true;
+    }
+
+    function cycle(n){
+      if(!running) return;
+      if(n > TOTAL){
+        running = false;
+        tMain.textContent = "做完了，感觉好一点吗？";
+        tSub.textContent = "难受的时候可以随时再做一次";
+        meta.textContent = "一共完成了 " + TOTAL + " 次呼吸";
+        bStart.disabled = false;
+        bStop.disabled = true;
+        return;
+      }
+      /* 吸气 4 秒 */
+      ball.classList.remove("out");
+      ball.style.transitionDuration = "4000ms";
+      ball.style.transform = "scale(1.42)";
+      tMain.textContent = "吸气…像闻花香";
+      tSub.textContent = "用鼻子慢慢吸 4 秒";
+      meta.textContent = "第 " + n + " / " + TOTAL + " 次";
+      timer = setTimeout(function(){
+        if(!running) return;
+        /* 呼气 6 秒 */
+        ball.classList.add("out");
+        ball.style.transitionDuration = "6000ms";
+        ball.style.transform = "scale(0.82)";
+        tMain.textContent = "呼气…像吹蜡烛";
+        tSub.textContent = "用嘴巴慢慢呼 6 秒";
+        timer = setTimeout(function(){ cycle(n + 1); }, 6000);
+      }, 4000);
+    }
+
+    bStart.addEventListener("click", function(){
+      reset();
+      running = true;
+      bStart.disabled = true;
+      bStop.disabled = false;
+      cycle(1);
+    });
+    bStop.addEventListener("click", function(){
+      reset();
+      tMain.textContent = "停了也没关系";
+      tSub.textContent = "想继续的时候再来一次";
+    });
+    reset();
+  })();
+
+  /* ================= 我的小感悟（原型） ================= */
+  (function(){
+    var listEl = document.getElementById("wallList");
+    var btnSave = document.getElementById("wallSave");
+    var btnClear = document.getElementById("wallClear");
+    var out = document.getElementById("wallOut");
+    if(!listEl) return;
+
+    var DEMO = [
+      {t:"我今天在学校被同学笑话了，心里很难受。后来我告诉了老师，老师说这不是我的错。", n:"小星星"},
+      {t:"原来生气不是坏事。我学会了先深呼吸，再说话。", n:"阿乐"},
+      {t:"我希望爸爸妈妈能多陪我一会儿，哪怕只是一起吃个饭。", n:"小云"}
+    ];
+
+    function render(){
+      var mine = store.get("xq_wall", []) || [];
+      listEl.innerHTML = "";
+      mine.forEach(function(it){
+        var li = document.createElement("li");
+        li.textContent = it.t;
+        var w = document.createElement("span");
+        w.className = "who";
+        w.textContent = "—— " + (it.n || "匿名的小朋友") + "（我写的）";
+        li.appendChild(w);
+        listEl.appendChild(li);
+      });
+      DEMO.forEach(function(it){
+        var li = document.createElement("li");
+        li.className = "demo";
+        li.textContent = it.t;
+        var w = document.createElement("span");
+        w.className = "who";
+        w.textContent = "—— " + it.n;
+        li.appendChild(w);
+        listEl.appendChild(li);
+      });
+    }
+
+    btnSave.addEventListener("click", function(){
+      var t = document.getElementById("wallText").value.trim();
+      var n = document.getElementById("wallName").value.trim();
+      if(t.length < 2){ out.textContent = "先写一两句话吧。"; return; }
+      if(/\d{6,}/.test(t)){ out.textContent = "请先去掉号码，别写下电话或住址这些能认出你的信息。"; return; }
+      var mine = store.get("xq_wall", []) || [];
+      mine.unshift({t:t, n:n, ts:Date.now()});
+      if(store.set("xq_wall", mine)){
+        document.getElementById("wallText").value = "";
+        out.textContent = "已经贴到墙上（只保存在你自己的手机里）。";
+        render();
+      }else{
+        out.textContent = "这台设备不支持本地保存。";
+      }
+    });
+
+    btnClear.addEventListener("click", function(){
+      if(!confirm("确定要清除你自己写的内容吗？此操作无法撤销。")) return;
+      store.del("xq_wall");
+      out.textContent = "已清除本机记录。";
+      render();
+    });
+
+    render();
+  })();
+
+  /* ================= 分享海报 ================= */
+  (function(){
+    var btnShare = document.getElementById("btnShare");
+    var cv = document.getElementById("posterCanvas");
+    if(!btnShare || !cv) return;
+    var ctx = cv.getContext("2d");
+
+    function rrect(x, y, w, h, r){
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    var FONT = '-apple-system,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif';
+
+    function drawPoster(){
+      var W = cv.width, H = cv.height;
+      ctx.clearRect(0, 0, W, H);
+
+      var g = ctx.createLinearGradient(0, 0, W * .6, H);
+      g.addColorStop(0, "#FF8A65");
+      g.addColorStop(.55, "#FFB25E");
+      g.addColorStop(1, "#FFD98A");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.fillStyle = "rgba(255,255,255,.22)";
+      ctx.beginPath(); ctx.arc(W - 40, 120, 150, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(40, H - 90, 110, 0, Math.PI * 2); ctx.fill();
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#3A2318";
+      ctx.font = "800 70px " + FONT;
+      ctx.fillText("心晴小站", W / 2, 112);
+      ctx.font = "600 29px " + FONT;
+      ctx.fillStyle = "#5C3A26";
+      ctx.fillText("斗门新青 · 儿童心理安全科普网页原型", W / 2, 158);
+      ctx.font = "500 24px " + FONT;
+      ctx.fillStyle = "#7A5540";
+      ctx.fillText("给 8–12 岁的小朋友和他们的爸爸妈妈", W / 2, 196);
+
+      ctx.save();
+      ctx.shadowColor = "rgba(120,70,40,.22)";
+      ctx.shadowBlur = 34;
+      ctx.shadowOffsetY = 12;
+      ctx.fillStyle = "#FFFDFB";
+      rrect(64, 232, W - 128, 580, 38);
+      ctx.fill();
+      ctx.restore();
+
+      var cx = W / 2;
+      ctx.fillStyle = "#2E2A28";
+      ctx.font = "800 34px " + FONT;
+      ctx.fillText("在这里可以做什么？", cx, 296);
+
+      var items = [
+        ["1", "认识我的情绪，情绪没有对错"],
+        ["2", "学会保护自己，身体我做主"],
+        ["3", "爸爸妈妈的简易育儿指引"],
+        ["4", "3 个趣味小游戏 + 呼吸放松"]
+      ];
+      items.forEach(function(it, i){
+        var y = 352 + i * 54;
+        ctx.beginPath();
+        ctx.arc(120, y - 11, 19, 0, Math.PI * 2);
+        ctx.fillStyle = "#FFEDE6";
+        ctx.fill();
+        ctx.fillStyle = "#E85E3C";
+        ctx.font = "800 24px " + FONT;
+        ctx.fillText(it[0], 120, y - 3);
+        ctx.textAlign = "left";
+        ctx.fillStyle = "#3A3430";
+        ctx.font = "600 30px " + FONT;
+        ctx.fillText(it[1], 156, y);
+        ctx.textAlign = "center";
+      });
+
+      ctx.strokeStyle = "#F1DCCB";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(106, 556);
+      ctx.lineTo(W - 106, 556);
+      ctx.stroke();
+
+      ctx.fillStyle = "#D93A3F";
+      ctx.font = "800 28px " + FONT;
+      ctx.fillText("需要帮助时，免费拨打", cx, 600);
+
+      ctx.fillStyle = "#C0392B";
+      ctx.font = "900 58px " + FONT;
+      ctx.fillText("12356", cx, 654);
+
+      ctx.font = "600 22px " + FONT;
+      ctx.fillStyle = "#5C3A26";
+      ctx.fillText("全国统一心理援助热线 · 24 小时免费", cx, 686);
+
+      ctx.fillStyle = "#1E7A73";
+      ctx.font = "800 38px " + FONT;
+      ctx.fillText("0756-8120120", cx, 738);
+
+      ctx.font = "600 22px " + FONT;
+      ctx.fillStyle = "#5C3A26";
+      ctx.fillText("珠海市心理援助热线 · 24 小时免费", cx, 768);
+
+      ctx.fillStyle = "#4A3122";
+      ctx.font = "700 28px " + FONT;
+      ctx.fillText("长按保存图片，转发给需要的家长", cx, 866);
+
+      ctx.fillStyle = "#7A5540";
+      ctx.font = "500 21px " + FONT;
+      ctx.fillText("本页为课程作业的网页原型，仅供科普，不替代专业帮助。", cx, 906);
+      ctx.fillText("紧急情况请拨打 110 / 120。", cx, 936);
+    }
+
+    btnShare.addEventListener("click", function(){
+      drawPoster();
+      openModal("posterModal");
+    });
+
+    var dl = document.getElementById("posterDownload");
+    if(dl){
+      dl.addEventListener("click", function(){
+        try{
+          var url = cv.toDataURL("image/png");
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = "心晴小站-分享海报.png";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          document.getElementById("posterOut").textContent = "已开始下载，可以在「下载」文件夹里找到它。";
+        }catch(e){
+          document.getElementById("posterOut").textContent = "这个浏览器不支持直接下载，请长按上面的图片保存。";
+        }
+      });
+    }
+
+    var pc = document.getElementById("posterCopy");
+    if(pc){
+      pc.addEventListener("click", function(){
+        copyText(location.href, document.getElementById("posterOut"), "链接已复制，可以粘贴给家长群。");
+      });
+    }
+  })();
+
+  /* ================= 启动 ================= */
+  go((location.hash || "#home").slice(1), true);
+})();
+</script>
+</body>
+</html>
